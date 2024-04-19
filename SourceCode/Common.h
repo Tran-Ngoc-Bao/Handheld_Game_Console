@@ -65,6 +65,24 @@ void negOtherGame() {
   tft.println("OTHER GAME");
 }
 
+void drawBest(int best) {
+  tft.fillRect(266, 40, 48, 24, black);
+  tft.setTextColor(purple);
+  if (best < 10) tft.setCursor(278, 40);
+  else if (best < 100) tft.setCursor(270, 40);
+  else tft.setCursor(266, 40);
+  tft.println(best);
+}
+
+void drawScore() {
+  tft.fillRect(266, 104, 48, 24, black);
+  tft.setTextColor(purple);
+  if (commonScore < 10) tft.setCursor(278, 104);
+  else if (commonScore < 100) tft.setCursor(270, 104);
+  else tft.setCursor(264, 104);
+  tft.println(commonScore);
+}
+
 void drawSubScreen(int best, int score) {
   commonScore = score;
 
@@ -77,19 +95,13 @@ void drawSubScreen(int best, int score) {
   tft.setTextColor(white);
   tft.println("BEST");
 
-  tft.fillRect(270, 104, 40, 24, black);
-  tft.setCursor(270, 40);
-  tft.setTextColor(purple);
-  tft.println(best);
+  drawBest(best);
 
   tft.setCursor(252, 80);
   tft.setTextColor(white);
   tft.println("SCORE");
 
-  tft.fillRect(270, 104, 40, 24, black);
-  tft.setCursor(270, 104);
-  tft.setTextColor(purple);
-  tft.println(score);
+  drawScore();
 
   tft.fillRect(252, 168, 66, 32, indigo);
   tft.setCursor(256, 176);
@@ -98,10 +110,8 @@ void drawSubScreen(int best, int score) {
 }
 
 void increaseScore() {
-  tft.fillRect(270, 104, 40, 24, black);
-  tft.setCursor(270, 104);
-  tft.setTextColor(purple);
-  tft.println(++commonScore);
+  ++commonScore;
+  drawScore();
 }
 
 void selectGame();

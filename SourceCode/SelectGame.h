@@ -1,7 +1,7 @@
 bool leftTriangle;
 
 void iconFlappyBird() {
-  tft.fillRect(96, 72, 128, 80, black);
+  tft.fillRect(96, 56, 144, 104, black);
   tft.fillRoundRect(144, 96, 48, 48, 11, yellow);
   tft.fillRoundRect(128, 108, 32, 32, 11, white);
   tft.fillRoundRect(168, 96, 24, 24, 11, white);
@@ -9,8 +9,25 @@ void iconFlappyBird() {
   tft.fillRoundRect(176, 132, 28, 6, 3, red);
 }
 
+void iconMaze() {
+  tft.fillRect(96, 56, 144, 104, black);
+  tft.fillRect(112, 56, 96, 8, red);
+  tft.fillRect(136, 80, 72, 8, red);
+  tft.fillRect(112, 104, 24, 8, red);
+  tft.fillRect(160, 104, 24, 8, red);
+  tft.fillRect(136, 128, 24, 8, red);
+  tft.fillRect(112, 152, 96, 8, red);
+  tft.fillRect(112, 56, 8, 48, red);
+  tft.fillRect(112, 128, 8, 24, red);
+  tft.fillRect(160, 128, 8, 24, red);
+  tft.fillRect(184, 80, 8, 48, red);
+  tft.fillRect(208, 56, 8, 32, red);
+  tft.fillRect(208, 104, 8, 56, red);
+  tft.fillRoundRect(120, 112, 16, 16, 5, green);
+}
+
 void iconPonk() {
-  tft.fillRect(96, 72, 128, 80, black);
+  tft.fillRect(96, 56, 144, 104, black);
   tft.fillRoundRect(156, 136, 8, 8, 5, yellow);
   tft.fillRoundRect(140, 144, 40, 8, 3, green);
   for (int i = 0; i < 15; ++i) {
@@ -22,7 +39,7 @@ void iconPonk() {
 }
 
 void iconSnakeWind() {
-  tft.fillRect(96, 72, 128, 80, black);
+  tft.fillRect(96, 56, 144, 104, black);
   tft.fillRoundRect(96, 136, 16, 16, 3, green);
   tft.fillRoundRect(112, 136, 16, 16, 3, green);
   tft.fillRoundRect(128, 136, 16, 16, 3, green);
@@ -36,27 +53,18 @@ void iconSnakeWind() {
 }
 
 void iconTankWar() {
-  tft.fillRect(96, 72, 128, 80, black);
-  tft.fillRoundRect(120, 120, 96, 24, 11, green);
-  tft.fillRoundRect(144, 96, 48, 24, 7, yellow);
-  tft.fillRoundRect(121, 121, 22, 22, 11, red);
-  tft.fillRoundRect(145, 121, 22, 22, 11, red);
-  tft.fillRoundRect(169, 121, 22, 22, 11, red);
-  tft.fillRoundRect(193, 121, 22, 22, 11, red);
-  tft.fillRoundRect(176, 104, 32, 6, 5, red);
-  tft.fillRoundRect(124, 124, 16, 16, 11, green);
-  tft.fillRoundRect(148, 124, 16, 16, 11, green);
-  tft.fillRoundRect(172, 124, 16, 16, 11, green);
-  tft.fillRoundRect(196, 124, 16, 16, 11, green);
-}
-
-void iconTetris() {
-  tft.fillRect(96, 72, 128, 80, black);
-  tft.fillRect(132, 132, 72, 12, red);
-  tft.fillRect(144, 120, 12, 12, red);
-  tft.fillRect(168, 120, 12, 12, red);
-  tft.fillRect(156, 76, 12, 36, yellow);
-  tft.fillRect(144, 88, 12, 12, yellow);
+  tft.fillRect(96, 56, 144, 104, black);
+  tft.fillRoundRect(112, 120, 96, 24, 11, green);
+  tft.fillRoundRect(136, 96, 48, 24, 7, yellow);
+  tft.fillRoundRect(113, 121, 22, 22, 11, red);
+  tft.fillRoundRect(137, 121, 22, 22, 11, red);
+  tft.fillRoundRect(161, 121, 22, 22, 11, red);
+  tft.fillRoundRect(185, 121, 22, 22, 11, red);
+  tft.fillRoundRect(168, 104, 32, 6, 5, red);
+  tft.fillRoundRect(116, 124, 16, 16, 11, green);
+  tft.fillRoundRect(140, 124, 16, 16, 11, green);
+  tft.fillRoundRect(164, 124, 16, 16, 11, green);
+  tft.fillRoundRect(188, 124, 16, 16, 11, green);
 }
 
 void drawGameName(String s) {
@@ -73,20 +81,20 @@ void subSelectGame() {
       drawGameName("FLAPPY BIRD");
       break;
     case 1:
+      iconMaze();
+      drawGameName("CRAZY MAZE");
+      break;
+    case 2:
       iconPonk();
       drawGameName("PONK PONK");
       break;
-    case 2:
+    case 3:
       iconSnakeWind();
       drawGameName("SNAKE WIND");
       break;
-    case 3:
-      iconTankWar();
-      drawGameName("TANK WARRR");
-      break;
     default:
-      iconTetris();
-      drawGameName("TTTETTTRIS");
+      iconTankWar();
+      drawGameName("TANK WAR I");
   }
 }
 
@@ -136,13 +144,13 @@ int switchNewGame() {
     case 0:
       return newGameFlappyBird();
     case 1:
-      return newGamePonk();
+      return newGameMaze();
     case 2:
-      return newGameSnakeWind();
+      return newGamePonk();
     case 3:
-      return newGameTankWar();
+      return newGameSnakeWind();
     default:
-      return newGameTetris();
+      return newGameTankWar();
   }
 }
 
@@ -151,12 +159,12 @@ int switchContinue() {
     case 0:
       return continueFlappyBird();
     case 1:
-      return continuePonk();
+      return continueMaze();
     case 2:
-      return continueSnakeWind();
+      return continuePonk();
     case 3:
-      return continueTankWar();
+      return continueSnakeWind();
     default:
-      return continueTetris();
+      return continueTankWar();
   }
 }

@@ -3,7 +3,9 @@ int gameOver(int score) {
   tft.setTextSize(3);
   tft.setTextColor(white);
 
-  tft.setCursor(144, 32);
+  if (commonScore < 10) tft.setCursor(152, 32);
+  else if (commonScore < 100) tft.setCursor(136, 32);
+  else tft.setCursor(128, 32);
   tft.println(score);
 
   bool newGame = true;

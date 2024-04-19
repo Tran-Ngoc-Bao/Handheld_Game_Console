@@ -390,7 +390,7 @@ int newGameTankWar() {
 
   while (1) {
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 10; ++i) {
       hitAndRunVietNam();
       delay(100);
     }
@@ -398,18 +398,36 @@ int newGameTankWar() {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
     } 
+
+    if (!digitalRead(enterPause)) return 0;
+    for (int i = 0; i < 10; ++i) {
+      hitAndRunVietNam();
+      delay(100);
+    }
     if (hitAndRunAmerica2()) {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
+    } 
+
+    if (!digitalRead(enterPause)) return 0;
+    for (int i = 0; i < 10; ++i) {
+      hitAndRunVietNam();
+      delay(100);
     }
     if (hitAndRunAmerica3()) {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
+    } 
+
+    if (!digitalRead(enterPause)) return 0;
+    for (int i = 0; i < 10; ++i) {
+      hitAndRunVietNam();
+      delay(100);
     }
     if (hitAndRunAmerica4()) {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
-    }
+    } 
   }
 }
 
@@ -424,7 +442,7 @@ int continueTankWar() {
   
   while (1) {
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 20; ++i) {
+    for (int i = 0; i < 10; ++i) {
       hitAndRunVietNam();
       delay(100);
     }
@@ -432,19 +450,35 @@ int continueTankWar() {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
     } 
+
+    if (!digitalRead(enterPause)) return 0;
+    for (int i = 0; i < 10; ++i) {
+      hitAndRunVietNam();
+      delay(100);
+    }
     if (hitAndRunAmerica2()) {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
+    } 
+
+    if (!digitalRead(enterPause)) return 0;
+    for (int i = 0; i < 10; ++i) {
+      hitAndRunVietNam();
+      delay(100);
     }
     if (hitAndRunAmerica3()) {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
+    } 
+
+    if (!digitalRead(enterPause)) return 0;
+    for (int i = 0; i < 10; ++i) {
+      hitAndRunVietNam();
+      delay(100);
     }
     if (hitAndRunAmerica4()) {
       if (commonScore > bestTankWar) bestTankWar = commonScore;
       return 1;
-    }
+    } 
   }
-
-  return 1;
 }
