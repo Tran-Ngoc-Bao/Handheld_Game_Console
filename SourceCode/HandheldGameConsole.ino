@@ -20,6 +20,13 @@ void setup() {
   tft.begin();
   tft.setRotation(2);
 
+  EEPROM.begin(5);
+  bestFlappyBird = EEPROM.read(0);
+  bestMaze = EEPROM.read(1);
+  bestPonk = EEPROM.read(2);
+  bestSnakeWind = EEPROM.read(3);
+  bestTankWar = EEPROM.read(4);
+
   selectGame();
 }
 

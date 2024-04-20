@@ -1,4 +1,4 @@
-int bestFlappyBird = 0, yBird;
+int yBird;
 
 int heightArray[31][2];
 
@@ -68,13 +68,21 @@ void drawBird() {
 bool checkGameOverFB() {
   if (heightArray[4][0]) {
     if (heightArray[4][0] >= yBird || yBird >= heightArray[4][0] + 6) {
-      if (commonScore > bestFlappyBird) bestFlappyBird = commonScore;
+      if (commonScore > bestFlappyBird) {
+        bestFlappyBird = commonScore;
+        EEPROM.write(0, commonScore);
+        EEPROM.commit();
+      }
       return true;
     } 
   }
   if (heightArray[6][0]) {
     if (heightArray[6][0] >= yBird || yBird >= heightArray[6][0] + 6) {
-      if (commonScore > bestFlappyBird) bestFlappyBird = commonScore;
+      if (commonScore > bestFlappyBird) {
+        bestFlappyBird = commonScore;
+        EEPROM.write(0, commonScore);
+        EEPROM.commit();
+      }
       return true;
     }
   }

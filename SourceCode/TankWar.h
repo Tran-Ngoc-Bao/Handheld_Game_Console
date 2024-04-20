@@ -1,4 +1,3 @@
-int bestTankWar = 0;
 int stateVietNam, stateAmerica1, stateAmerica2, stateAmerica3, stateAmerica4;
 
 coordinates vietNam, america1, america2, america3, america4;
@@ -53,19 +52,9 @@ void drawAmerica(int x, int y, int state) {
   }
 }
 
-void eraseVietNam() {
-  if (stateVietNam == 1 || stateVietNam == 3) tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 32, black);
-  else tft.fillRect(vietNam.x * 8, vietNam.y * 8, 32, 24, black);
-}
-
-void eraseAmerica(int x, int y, int state) {
-  if (state == 1 || state == 3) tft.fillRect(x * 8, y * 8, 24, 32, black);
-  else tft.fillRect(x * 8, y * 8, 32, 24, black);
-}
-
 bool killAmerica(int x, int y) {
   if (america1.x <= x && x <= america1.x + 2 && america1.y <= y && y <= america1.y + 2) {
-    eraseAmerica(america1.x, america1.y, stateAmerica1);
+    tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
     increaseScore();
     america1.x = 3;
     america1.y = 3;
@@ -73,7 +62,7 @@ bool killAmerica(int x, int y) {
     return true;
   }
   if (america2.x <= x && x <= america2.x + 2 && america2.y <= y && y <= america2.y + 2) {
-    eraseAmerica(america2.x, america2.y, stateAmerica2);
+    tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
     increaseScore();
     america2.x = 24;
     america2.y = 3;
@@ -81,7 +70,7 @@ bool killAmerica(int x, int y) {
     return true;
   }
   if (america3.x <= x && x <= america3.x + 2 && america3.y <= y && y <= america3.y + 2) {
-    eraseAmerica(america3.x, america3.y, stateAmerica3);
+    tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
     increaseScore();
     america3.x = 24;
     america3.y = 24;
@@ -89,7 +78,7 @@ bool killAmerica(int x, int y) {
     return true;
   }
   if (america4.x <= x && x <= america4.x + 2 && america4.y <= y && y <= america4.y + 2) {
-    eraseAmerica(america4.x, america4.y, stateAmerica4);
+    tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
     increaseScore();
     america4.x = 3;
     america4.y = 24;
@@ -142,7 +131,7 @@ void shootAmerica() {
 
 void hitAndRunVietNam() {
   if (!digitalRead(top) && vietNam.y) {
-    eraseVietNam();
+    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);;
     --vietNam.y;
     if (stateVietNam != 1) {
       stateVietNam = 1;
@@ -150,7 +139,7 @@ void hitAndRunVietNam() {
       shootAmerica();
     } else drawVietNam();
   } else if (!digitalRead(right) && vietNam.x != 27) {
-    eraseVietNam();
+    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);;
     ++vietNam.x;
     if (stateVietNam != 2) {
       stateVietNam = 2;
@@ -158,7 +147,7 @@ void hitAndRunVietNam() {
       shootAmerica();
     } else drawVietNam();
   } else if (!digitalRead(bottom) && vietNam.y != 27) {
-    eraseVietNam();
+    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);;
     ++vietNam.y;
     if (stateVietNam != 3) {
       stateVietNam = 3;
@@ -166,7 +155,7 @@ void hitAndRunVietNam() {
       shootAmerica();
     } else drawVietNam();
   } else if (!digitalRead(left) && vietNam.x) {
-    eraseVietNam();
+    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);;
     --vietNam.x;
     if (stateVietNam != 4) {
       stateVietNam = 4;
@@ -217,38 +206,81 @@ bool shootVietNam(int x, int y, int state) {
   }
 }
 
+void subHitAndRunVietNam() {
+  for (int i = 0; i < 3; ++i) {
+    hitAndRunVietNam();
+    delay(100);
+  }
+}
+
 bool hitAndRunAmerica1() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america1.y) {
-      eraseAmerica(america1.x, america1.y, stateAmerica1);
-      --america1.y;
+    if (rd == 1 && america1.y > 5) {
       stateAmerica1 = 1;
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      --america1.y;
       drawAmerica(america1.x, america1.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      --america1.y;
+      drawAmerica(america1.x, america1.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      --america1.y;
+      drawAmerica(america1.x, america1.y, 1);
+      subHitAndRunVietNam();
       if (shootVietNam(america1.x, america1.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america1.x != 27) {
-      eraseAmerica(america1.x, america1.y, stateAmerica1);
-      ++america1.x;
+    if (rd == 2 && america1.x < 22) {
       stateAmerica1 = 2;
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      ++america1.x;
       drawAmerica(america1.x, america1.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      ++america1.x;
+      drawAmerica(america1.x, america1.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      ++america1.x;
+      drawAmerica(america1.x, america1.y, 2);
+      subHitAndRunVietNam();
       if (shootVietNam(america1.x, america1.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america1.y != 27) {
-      eraseAmerica(america1.x, america1.y, stateAmerica1);
-      ++america1.y;
+    if (rd == 3 && america1.y < 22) {
       stateAmerica1 = 3;
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      ++america1.y;
       drawAmerica(america1.x, america1.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      ++america1.y;
+      drawAmerica(america1.x, america1.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      ++america1.y;
+      drawAmerica(america1.x, america1.y, 3);
+      subHitAndRunVietNam();
       if (shootVietNam(america1.x, america1.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america1.x) {
-      eraseAmerica(america1.x, america1.y, stateAmerica1);
-      --america1.x;
+    if (rd == 4 && america1.x > 5) {
       stateAmerica1 = 4;
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      --america1.x;
       drawAmerica(america1.x, america1.y, 4);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      --america1.x;
+      drawAmerica(america1.x, america1.y, 4);
+      subHitAndRunVietNam();
+      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+      --america1.x;
+      drawAmerica(america1.x, america1.y, 4);
+      subHitAndRunVietNam();
       if (shootVietNam(america1.x, america1.y, 4)) return true;
       return false;
     }
@@ -258,36 +290,72 @@ bool hitAndRunAmerica1() {
 bool hitAndRunAmerica2() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america2.y) {
-      eraseAmerica(america2.x, america2.y, stateAmerica2);
-      --america2.y;
+    if (rd == 1 && america2.y > 5) {
       stateAmerica2 = 1;
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      --america2.y;
       drawAmerica(america2.x, america2.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      --america2.y;
+      drawAmerica(america2.x, america2.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      --america2.y;
+      drawAmerica(america2.x, america2.y, 1);
+      subHitAndRunVietNam();
       if (shootVietNam(america2.x, america2.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america2.x != 27) {
-      eraseAmerica(america2.x, america2.y, stateAmerica2);
-      ++america2.x;
+    if (rd == 2 && america2.x < 22) {
       stateAmerica2 = 2;
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      ++america2.x;
       drawAmerica(america2.x, america2.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      ++america2.x;
+      drawAmerica(america2.x, america2.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      ++america2.x;
+      drawAmerica(america2.x, america2.y, 2);
+      subHitAndRunVietNam();
       if (shootVietNam(america2.x, america2.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america2.y != 27) {
-      eraseAmerica(america2.x, america2.y, stateAmerica2);
-      ++america2.y;
+    if (rd == 3 && america2.y < 22) {
       stateAmerica2 = 3;
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      ++america2.y;
       drawAmerica(america2.x, america2.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      ++america2.y;
+      drawAmerica(america2.x, america2.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      ++america2.y;
+      drawAmerica(america2.x, america2.y, 3);
+      subHitAndRunVietNam();
       if (shootVietNam(america2.x, america2.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america2.x) {
-      eraseAmerica(america2.x, america2.y, stateAmerica2);
-      --america2.x;
+    if (rd == 4 && america2.x > 5) {
       stateAmerica2 = 4;
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      --america2.x;
       drawAmerica(america2.x, america2.y, 4);
-      if (shootVietNam(america2.x, america2.y, 4)) return true;
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      --america2.x;
+      drawAmerica(america2.x, america2.y, 4);
+      subHitAndRunVietNam();
+      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+      --america2.x;
+      drawAmerica(america2.x, america2.y, 4);
+      subHitAndRunVietNam();
+      if (shootVietNam(america2.x, america1.y, 4)) return true;
       return false;
     }
   }
@@ -296,35 +364,71 @@ bool hitAndRunAmerica2() {
 bool hitAndRunAmerica3() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america3.y) {
-      eraseAmerica(america3.x, america3.y, stateAmerica3);
-      --america3.y;
+    if (rd == 1 && america3.y > 5) {
       stateAmerica3 = 1;
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      --america3.y;
       drawAmerica(america3.x, america3.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      --america3.y;
+      drawAmerica(america3.x, america3.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      --america3.y;
+      drawAmerica(america3.x, america3.y, 1);
+      subHitAndRunVietNam();
       if (shootVietNam(america3.x, america3.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america3.x != 27) {
-      eraseAmerica(america3.x, america3.y, stateAmerica3);
-      ++america3.x;
+    if (rd == 2 && america3.x < 22) {
       stateAmerica3 = 2;
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      ++america3.x;
       drawAmerica(america3.x, america3.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      ++america3.x;
+      drawAmerica(america3.x, america3.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      ++america3.x;
+      drawAmerica(america3.x, america3.y, 2);
+      subHitAndRunVietNam();
       if (shootVietNam(america3.x, america3.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america3.y != 27) {
-      eraseAmerica(america3.x, america3.y, stateAmerica3);
-      ++america3.y;
+    if (rd == 3 && america3.y < 22) {
       stateAmerica3 = 3;
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      ++america3.y;
       drawAmerica(america3.x, america3.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      ++america3.y;
+      drawAmerica(america3.x, america3.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      ++america3.y;
+      drawAmerica(america3.x, america3.y, 3);
+      subHitAndRunVietNam();
       if (shootVietNam(america3.x, america3.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america3.x) {
-      eraseAmerica(america3.x, america3.y, stateAmerica3);
-      --america3.x;
+    if (rd == 4 && america3.x > 5) {
       stateAmerica3 = 4;
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      --america3.x;
       drawAmerica(america3.x, america3.y, 4);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      --america3.x;
+      drawAmerica(america3.x, america3.y, 4);
+      subHitAndRunVietNam();
+      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+      --america3.x;
+      drawAmerica(america3.x, america3.y, 4);
+      subHitAndRunVietNam();
       if (shootVietNam(america3.x, america3.y, 4)) return true;
       return false;
     }
@@ -334,35 +438,71 @@ bool hitAndRunAmerica3() {
 bool hitAndRunAmerica4() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america4.y) {
-      eraseAmerica(america4.x, america4.y, stateAmerica4);
-      --america4.y;
+    if (rd == 1 && america4.y > 5) {
       stateAmerica4 = 1;
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      --america4.y;
       drawAmerica(america4.x, america4.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      --america4.y;
+      drawAmerica(america4.x, america4.y, 1);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      --america4.y;
+      drawAmerica(america4.x, america4.y, 1);
+      subHitAndRunVietNam();
       if (shootVietNam(america4.x, america4.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america4.x != 27) {
-      eraseAmerica(america4.x, america4.y, stateAmerica4);
-      ++america4.x;
+    if (rd == 2 && america4.x < 22) {
       stateAmerica4 = 2;
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      ++america4.x;
       drawAmerica(america4.x, america4.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      ++america4.x;
+      drawAmerica(america4.x, america4.y, 2);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      ++america4.x;
+      drawAmerica(america4.x, america4.y, 2);
+      subHitAndRunVietNam();
       if (shootVietNam(america4.x, america4.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america4.y != 27) {
-      eraseAmerica(america4.x, america4.y, stateAmerica4);
-      ++america4.y;
+    if (rd == 3 && america4.y < 22) {
       stateAmerica4 = 3;
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      ++america4.y;
       drawAmerica(america4.x, america4.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      ++america4.y;
+      drawAmerica(america4.x, america4.y, 3);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      ++america4.y;
+      drawAmerica(america4.x, america4.y, 3);
+      subHitAndRunVietNam();
       if (shootVietNam(america4.x, america4.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america4.x) {
-      eraseAmerica(america4.x, america4.y, stateAmerica4);
-      --america4.x;
+    if (rd == 4 && america4.x > 5) {
       stateAmerica4 = 4;
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      --america4.x;
       drawAmerica(america4.x, america4.y, 4);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      --america4.x;
+      drawAmerica(america4.x, america4.y, 4);
+      subHitAndRunVietNam();
+      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+      --america4.x;
+      drawAmerica(america4.x, america4.y, 4);
+      subHitAndRunVietNam();
       if (shootVietNam(america4.x, america4.y, 4)) return true;
       return false;
     }
@@ -390,42 +530,42 @@ int newGameTankWar() {
 
   while (1) {
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica1()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
 
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica2()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
 
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica3()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
 
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica4()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
   }
@@ -442,42 +582,42 @@ int continueTankWar() {
   
   while (1) {
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica1()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
 
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica2()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
 
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica3()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
 
     if (!digitalRead(enterPause)) return 0;
-    for (int i = 0; i < 10; ++i) {
-      hitAndRunVietNam();
-      delay(100);
-    }
     if (hitAndRunAmerica4()) {
-      if (commonScore > bestTankWar) bestTankWar = commonScore;
+      if (commonScore > bestTankWar) {
+        bestTankWar = commonScore;
+        EEPROM.write(4, commonScore);
+        EEPROM.commit();
+      }
       return 1;
     } 
   }

@@ -1,4 +1,5 @@
-int bestMaze = 0, xMouse, yMouse;
+#include "EEPROM.h"
+int xMouse, yMouse;
 
 char maze[841];
 
@@ -111,7 +112,11 @@ int newGameMaze() {
     for (int i = 0; i < 10; ++i) {
       if (!digitalRead(enterPause)) return 0;
       if (moveMouse()) {
-        if (commonScore < bestMaze || !bestMaze) bestMaze = commonScore;
+        if (commonScore < bestMaze || !bestMaze) {
+          bestMaze = commonScore;
+          EEPROM.write(1, commonScore);
+          EEPROM.commit();
+        }
         return 1;
       }
       delay(100);
@@ -148,7 +153,11 @@ int continueMaze() {
     for (int i = 0; i < 10; ++i) {
       if (!digitalRead(enterPause)) return 0;
       if (moveMouse()) {
-        if (commonScore < bestMaze || !bestMaze) bestMaze = commonScore;
+        if (commonScore < bestMaze || !bestMaze) {
+          bestMaze = commonScore;
+          EEPROM.write(1, commonScore);
+          EEPROM.commit();
+        }
         return 1;
       }
       delay(100);

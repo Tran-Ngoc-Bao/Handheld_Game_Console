@@ -1,4 +1,4 @@
-int bestSnakeWind = 0, directionSnakeWind;
+int directionSnakeWind;
 
 std::vector<coordinates> snake;
 
@@ -89,7 +89,11 @@ void drawRunSnake(int x, int y) {
 bool checkGameOverSW() {
   for (int i = 1; i < snake.size(); ++i) {
     if (snake[i].x == snake[0].x && snake[i].y == snake[0].y) {
-      if (commonScore > bestSnakeWind) bestSnakeWind = commonScore;
+      if (commonScore > bestSnakeWind) {
+        bestSnakeWind = commonScore;          
+        EEPROM.write(3, commonScore);
+        EEPROM.commit();
+      }
       snake.clear();
       return true;
     }

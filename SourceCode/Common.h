@@ -1,5 +1,6 @@
 #include "Adafruit_ILI9341.h"
 #include "vector"
+#include "EEPROM.h"
 
 #define _cs 15
 #define _dc 2 
@@ -25,8 +26,8 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(_cs, _dc, _mosi, _sclk, _rst);
 #define blue tft.color565(255, 255, 0)
 #define white tft.color565(255, 255, 255)
 
-int currentGame = 0;
-int commonScore;
+int currentGame = 0, commonScore;
+int bestFlappyBird, bestMaze, bestPonk, bestSnakeWind, bestTankWar;
 bool flag = true;
 
 void posContinue() {
