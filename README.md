@@ -68,9 +68,9 @@
 
 ### Play game
 <div style="display:flex">
-  <img style="width:33%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Maze.jpeg">
-  <img style="width:33%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Ponk.jpeg">
-  <img style="width:33%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SnakeWind.jpeg">
+  <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Maze.jpeg">
+  <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Ponk.jpeg">
+  <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SnakeWind.jpeg">
 </div>
 
 ## Report
