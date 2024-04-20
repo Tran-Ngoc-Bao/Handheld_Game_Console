@@ -10,24 +10,24 @@
 <tr>
   <td>Trần Ngọc Bảo (Leader)</td>
   <td>20215529</td>
-  <td>Design, Program, Deploy</td>
+  <td>Design, Program, Test, Deploy</td>
 </tr>
 <tr>
   <td>Đinh Thủy Dương</td>
   <td>20215553</td>
-  <td>Test, Write report</td>
+  <td>Program, Write report</td>
 </tr>
 <tr>
   <td>Trần Ngọc Minh</td>
   <td>20215617</td>
-  <td>Test, Write report</td>
+  <td>Program, Write report</td>
 </tr>
 </table>
 
 ## Project introduction
 <ul>
   <li>Name of project: Building a handheld game console</li>
-  <li>Project objective: Develop a handheld game console with games: Snake wind, Tetris, Flappy bird, Ponk... developed on an embedded system.</li>
+  <li>Project objective: Develop a handheld game console with games: <i>Flappy bird, Maze, Ponk, Snake wind, Tank war</i> developed on an embedded system.</li>
 </ul>
 
 ## Building our system
@@ -45,7 +45,33 @@
   <li>See details in <a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/tree/master/Document">Document</a> and <a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/tree/master/SourceCode">SourceCode</a> above.</li>
 </ul>
 
+## Implementation instructions
+<ul>
+  <li>Install the system according to the <a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Document/Design/Circuit.png">design</a>, refer to the images below in the Demo section.</li>
+  <li>Create a folder with Arduino IDE, code in <a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/tree/master/SourceCode">SourceCode.</a></li>
+  <li>Connect device with your computer, proceed to load the code into device.</a></li>
+  <li>Disconnect device with your computer, connect device with the power source, and run like a handheld game console.</a></li>
+</ul>
+
 ## Demo
+### Select game
+<div style="display:flex">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/FlappyBird.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/TankWar.jpeg">
+</div>
+
+### Pasue and Game over
+<div style="display:flex">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Pause.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/GameOver.jpeg">
+</div>
+
+### Play game
+<div style="display:flex">
+  <img style="width:33%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Maze.jpeg">
+  <img style="width:33%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Ponk.jpeg">
+  <img style="width:33%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SnakeWind.jpeg">
+</div>
 
 ## Report
 <ul>
