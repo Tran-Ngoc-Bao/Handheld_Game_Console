@@ -27,7 +27,7 @@
 ## Project introduction
 <ul>
   <li>Name of project: Building a handheld game console</li>
-  <li>Project objective: Develop a handheld game console with games: <i>Flappy bird, Maze, Ponk, Snake wind, Tank war</i> developed on an embedded system.</li>
+  <li>Project objective: Develop a handheld game console with games: <i>Flappy Bird, Maze, Ponk, Snake Wind, Tank War</i> developed on an embedded system.</li>
 </ul>
 
 ## Building our system
@@ -60,7 +60,7 @@
   <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/TankWar.jpeg">
 </div>
 
-### Pasue and Game over
+### Pause and Game over
 <div style="display:flex">
   <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Pause.jpeg">
   <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/GameOver.jpeg">
