@@ -138,6 +138,7 @@ void moveSnake() {
 int newGameSnakeWind() {
   drawSubScreen(bestSnakeWind, 0);
 
+  snake.clear();
   snake.push_back({15, 15});
   snake.push_back({14, 15});
 
