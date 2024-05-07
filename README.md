@@ -22,6 +22,11 @@
   <td>20215617</td>
   <td>Program, Write report</td>
 </tr>
+<tr>
+  <td>Phạm Thế Anh</td>
+  <td>20215526</td>
+  <td>Write report, Make slide</td>
+</tr>
 </table>
 
 ## Project introduction
