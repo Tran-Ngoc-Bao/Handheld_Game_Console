@@ -304,7 +304,7 @@ int newGamePonk() {
   delay(1000);
 
   while (1) {
-    if (!digitalRead(enterPause)) return 0;
+    if (!digitalRead(pau)) return 0;
     if (moveBall() || !countBrick) {
       if (commonScore > bestPonk) {
         bestPonk = commonScore;  
@@ -333,7 +333,7 @@ int continuePonk() {
   delay(1000);
 
   while (1) {
-    if (!digitalRead(enterPause)) return 0;
+    if (!digitalRead(pau)) return 0;
     if (moveBall() || !countBrick) {
       if (commonScore > bestPonk) {
         bestPonk = commonScore;
