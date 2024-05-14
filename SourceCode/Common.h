@@ -15,6 +15,7 @@
 #define right 25
 #define enter 26
 #define pau 33
+#define buzzer 32
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(_cs, _dc, _mosi, _sclk, _rst);
 
@@ -112,6 +113,7 @@ void drawSubScreen(int best, int score) {
 }
 
 void increaseScore() {
+  tone(buzzer, 349, 120);
   ++commonScore;
   drawScore();
 }
@@ -121,3 +123,29 @@ void selectGame();
 struct coordinates {
   int x, y;
 };
+
+void playTone(int t, int duration) {
+  tone(buzzer, t, duration);
+  delay(duration * 1.3);
+  noTone(buzzer);
+}
+
+void music() {
+  // "Mario Theme"
+  playTone(660, 120); // E6
+  playTone(660, 120); // E6
+  delay(120);
+  playTone(660, 120); // E6
+  delay(120);
+  playTone(510, 120); // B5
+  playTone(660, 120); // E6
+  delay(120);
+  playTone(1397, 120); // F6
+  delay(300);
+  playTone(380, 120); // G4
+  delay(300);
+  playTone(510, 120); // B5
+  delay(120);
+  playTone(380, 120); // G4
+  delay(300);
+}

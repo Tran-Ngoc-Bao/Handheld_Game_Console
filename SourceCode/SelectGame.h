@@ -140,6 +140,7 @@ void selectGame() {
 }
 
 int switchNewGame() {
+  music();
   switch (currentGame) {
     case 0:
       return newGameFlappyBird();

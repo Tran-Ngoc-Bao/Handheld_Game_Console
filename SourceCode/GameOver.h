@@ -1,4 +1,5 @@
 int gameOver(int score) {
+  music();
   tft.fillScreen(black);
   tft.setTextSize(3);
   tft.setTextColor(white);

@@ -15,6 +15,7 @@ void setup() {
   pinMode(right, INPUT);
   pinMode(enter, INPUT);
   pinMode(pau, INPUT);
+  pinMode(buzzer, OUTPUT);
 
   Serial.begin(9600);
 
