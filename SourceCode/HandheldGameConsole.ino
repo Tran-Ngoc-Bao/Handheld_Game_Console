@@ -1,11 +1,19 @@
+/*
+NOTE: VARIABLE NAME, FUNCTION NAME
+    Belong to game: main target + game name + sub target
+      Ex: bestMazeEasy
+    Var in function: variable name + Tmp
+      Ex: resultTmp
+    Use common: normal
+      Ex: tft
+*/
+
 #include "Common.h"
 #include "FlappyBird.h"
 #include "Maze.h"
 #include "Ponk.h"
 #include "SnakeWind.h"
 #include "TankWar.h"
-#include "Pause.h"
-#include "GameOver.h"
 #include "SelectGame.h"
 
 void setup() {
@@ -23,29 +31,47 @@ void setup() {
   tft.setRotation(2);
 
   EEPROM.begin(5);
-  bestFlappyBird = EEPROM.read(0);
-  bestMaze = EEPROM.read(1);
-  bestPonk = EEPROM.read(2);
-  bestSnakeWind = EEPROM.read(3);
-  bestTankWar = EEPROM.read(4);
+
+  bestFlappyBird = EEPROM.read(addressBestFlappyBird);
+
+  bestMazeEasy = EEPROM.read(addressBestMazeEasy);
+  bestMazeMedium = EEPROM.read(addressBestMazeMedium);
+  bestMazeHard = EEPROM.read(addressBestMazeHard);
+
+  bestPonkEasy = EEPROM.read(addressBestPonkEasy);
+  bestPonkMedium = EEPROM.read(addressBestPonkMedium);
+  bestPonkHard = EEPROM.read(addressBestPonkHard);
+
+  bestSnakeWindFreeEasy = EEPROM.read(addressBestSnakeWindFreeEasy);
+  bestSnakeWindFreeMedium = EEPROM.read(addressBestSnakeWindFreeMedium);
+  bestSnakeWindFreeHard = EEPROM.read(addressBestSnakeWindFreeHard);
+  bestSnakeWindHomeEasy = EEPROM.read(addressBestSnakeWindHomeEasy);
+  bestSnakeWindHomeMedium = EEPROM.read(addressBestSnakeWindHomeMedium);
+  bestSnakeWindHomeHard = EEPROM.read(addressBestSnakeWindHomeHard);
+  bestSnakeWindParkEasy = EEPROM.read(addressBestSnakeWindParkEasy);
+  bestSnakeWindParkMedium = EEPROM.read(addressBestSnakeWindParkMedium);
+  bestSnakeWindParkHard = EEPROM.read(addressBestSnakeWindParkHard);
+
+  bestTankWar = EEPROM.read(addressBestTankWar);
 
   selectGame();
 }
 
+// Handheld game console actives
 void loop() {
-  int resCommon;
-  if (flag) resCommon = switchNewGame();
-  else resCommon = switchContinue();
+  int resultCommonTmp;
+  if (flag) resultCommonTmp = switchNewGame();
+  else resultCommonTmp = switchContinue();
 
-  if (resCommon) {
+  if (resultCommonTmp) {
     flag = true;
-    if (gameOver(commonScore) == 2) selectGame();
+    if (selectTwo(true, "NEW GAME", "OTHER GAME") == 2) selectGame();
   } else {
-    int resPause = pause();
-    if (resPause == 0) flag = false;
+    int resultPauseTmp = selectThree("CONTINUE", "NEW GAME", "OTHER GAME");
+    if (resultPauseTmp == 0) flag = false;
     else {
       flag = true;
-      if (resPause == 2) selectGame();
+      if (resultPauseTmp == 2) selectGame();
     }
   }
 }

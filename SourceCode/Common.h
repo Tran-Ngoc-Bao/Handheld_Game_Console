@@ -28,61 +28,210 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(_cs, _dc, _mosi, _sclk, _rst);
 #define blue tft.color565(255, 255, 0)
 #define white tft.color565(255, 255, 255)
 
+#define addressBestFlappyBird 0
+
+#define addressBestMazeEasy 1
+#define addressBestMazeMedium 2
+#define addressBestMazeHard 3
+
+#define addressBestPonkEasy 4
+#define addressBestPonkMedium 5
+#define addressBestPonkHard 6
+
+#define addressBestSnakeWindFreeEasy 7
+#define addressBestSnakeWindFreeMedium 8
+#define addressBestSnakeWindFreeHard 9
+#define addressBestSnakeWindHomeEasy 10
+#define addressBestSnakeWindHomeMedium 11
+#define addressBestSnakeWindHomeHard 12
+#define addressBestSnakeWindParkEasy 13
+#define addressBestSnakeWindParkMedium 14
+#define addressBestSnakeWindParkHard 15
+
+#define addressBestTankWar 16
+
 int currentGame = 0, commonScore;
-int bestFlappyBird, bestMaze, bestPonk, bestSnakeWind, bestTankWar;
+
+int bestFlappyBird;
+int bestPonkEasy, bestPonkMedium, bestPonkHard;
+int bestMazeEasy, bestMazeMedium, bestMazeHard;
+int bestSnakeWindFreeEasy, bestSnakeWindFreeMedium, bestSnakeWindFreeHard, bestSnakeWindHomeEasy, bestSnakeWindHomeMedium, bestSnakeWindHomeHard
+                          , bestSnakeWindParkEasy, bestSnakeWindParkMedium, bestSnakeWindParkHard;
+int bestTankWar;
+
 bool flag = true;
 
-void posContinue() {
+void playTone(int t, int duration) {
+  tone(buzzer, t, duration);
+  delay(duration * 1.3);
+  noTone(buzzer);
+}
+
+// "Mario Theme"
+void music() {
+  playTone(660, 120);
+  playTone(660, 120);
+  delay(120);
+  playTone(660, 120);
+  delay(120);
+  playTone(510, 120);
+  playTone(660, 120);
+  delay(120);
+  playTone(1397, 120);
+  delay(300);
+  playTone(380, 120);
+  delay(300);
+  playTone(510, 120);
+  delay(120);
+  playTone(380, 120);
+  delay(300);
+}
+
+void posOne(String s) {
   tft.fillRect(80, 24, 156, 40, red);
   tft.setCursor(88, 32);
-  tft.println("CONTINUE");
+  tft.println(s);
 }
 
-void negContinue() {
+void negOne(String s) {
   tft.fillRect(80, 24, 156, 40, indigo);
   tft.setCursor(88, 32);
-  tft.println("CONTINUE");
+  tft.println(s);
 }
 
-void posNewGame() {
+void posTwo(String s) {
   tft.fillRect(80, 88, 156, 40, red);
   tft.setCursor(88, 96);
-  tft.println("NEW GAME");
+  tft.println(s);
 }
 
-void negNewGame() {
+void negTwo(String s) {
   tft.fillRect(80, 88, 156, 40, indigo);
   tft.setCursor(88, 96);
-  tft.println("NEW GAME");
+  tft.println(s);
 }
 
-void posOtherGame() {
+void posThree(String s) {
   tft.fillRect(64, 152, 192, 40, red);
   tft.setCursor(72, 160);
-  tft.println("OTHER GAME");
+  tft.println(s);
 }
 
-void negOtherGame() {
+void negThree(String s) {
   tft.fillRect(64, 152, 192, 40, indigo);
   tft.setCursor(72, 160);
-  tft.println("OTHER GAME");
+  tft.println(s);
 }
 
 void drawBest(int best) {
   tft.fillRect(266, 40, 48, 24, black);
   tft.setTextColor(purple);
+
   if (best < 10) tft.setCursor(278, 40);
   else if (best < 100) tft.setCursor(270, 40);
   else tft.setCursor(266, 40);
+
   tft.println(best);
+}
+
+int selectThree(String one, String two, String three) {
+  tft.fillScreen(black);
+  tft.setTextSize(3);
+  tft.setTextColor(white);
+
+  bool oneTmp = true;
+  bool twoTmp = false;
+
+  posOne(one);
+  negTwo(two);
+  negThree(three);
+
+  while (1) {
+    if (oneTmp) {
+      if (!digitalRead(enter)) return 0;
+      if (!digitalRead(top)) {
+        negOne(one);
+        posThree(three);
+        oneTmp = false;
+      } else if (!digitalRead(bottom)) {
+        negOne(one);
+        posTwo(two);
+        oneTmp = false;
+        twoTmp = true;
+      } 
+    } else if (twoTmp) {
+      if (!digitalRead(enter)) return 1;
+      if (!digitalRead(top)) {
+        negTwo(two);
+        posOne(one);
+        twoTmp = false;
+        oneTmp = true;
+      } else if (!digitalRead(bottom)) {
+        negTwo(two);
+        posThree(three);
+        twoTmp = false;
+      } 
+    } else {
+      if (!digitalRead(enter)) return 2;
+      if (!digitalRead(top)) {
+        negThree(three);
+        posTwo(two);
+        twoTmp = true;
+      } else if (!digitalRead(bottom)) {
+        negThree(three);
+        posOne(one);
+        oneTmp = true;
+      } 
+    }
+  }
+}
+
+int selectTwo(bool gameOver, String two, String three) {
+  if (gameOver) music();
+
+  tft.fillScreen(black);
+  tft.setTextSize(3);
+  tft.setTextColor(white);
+
+  if (gameOver) {
+    if (commonScore < 10) tft.setCursor(152, 32);
+    else if (commonScore < 100) tft.setCursor(136, 32);
+    else tft.setCursor(128, 32);
+    tft.println(commonScore);
+  }
+
+  bool twoTmp = true;
+
+  posTwo(two);
+  negThree(three);
+
+  while (1) {
+    if (twoTmp) {
+      if (!digitalRead(enter)) return 1;
+      if (!digitalRead(top) || !digitalRead(bottom)) {
+        negTwo(two);
+        posThree(three);
+        twoTmp = false;
+      } 
+    } else {
+      if (!digitalRead(enter)) return 2;
+      if (!digitalRead(top) || !digitalRead(bottom)) {
+        negThree(three);
+        posTwo(two);
+        twoTmp = true;
+      } 
+    }
+  }
 }
 
 void drawScore() {
   tft.fillRect(266, 104, 48, 24, black);
   tft.setTextColor(purple);
+
   if (commonScore < 10) tft.setCursor(278, 104);
   else if (commonScore < 100) tft.setCursor(270, 104);
   else tft.setCursor(264, 104);
+  
   tft.println(commonScore);
 }
 
@@ -113,7 +262,6 @@ void drawSubScreen(int best, int score) {
 }
 
 void increaseScore() {
-  tone(buzzer, 349, 120);
   ++commonScore;
   drawScore();
 }
@@ -123,29 +271,3 @@ void selectGame();
 struct coordinates {
   int x, y;
 };
-
-void playTone(int t, int duration) {
-  tone(buzzer, t, duration);
-  delay(duration * 1.3);
-  noTone(buzzer);
-}
-
-void music() {
-  // "Mario Theme"
-  playTone(660, 120); // E6
-  playTone(660, 120); // E6
-  delay(120);
-  playTone(660, 120); // E6
-  delay(120);
-  playTone(510, 120); // B5
-  playTone(660, 120); // E6
-  delay(120);
-  playTone(1397, 120); // F6
-  delay(300);
-  playTone(380, 120); // G4
-  delay(300);
-  playTone(510, 120); // B5
-  delay(120);
-  playTone(380, 120); // G4
-  delay(300);
-}

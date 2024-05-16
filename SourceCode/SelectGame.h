@@ -30,10 +30,11 @@ void iconPonk() {
   tft.fillRect(96, 56, 144, 104, black);
   tft.fillRoundRect(156, 136, 8, 8, 5, yellow);
   tft.fillRoundRect(140, 144, 40, 8, 3, green);
+  
   for (int i = 0; i < 15; ++i) {
     for (int j = 0; j < 5; ++j) {
-      int rd = random(2);
-      if (rd) tft.fillRect(96 + i * 8, 72 + j * 8, 8, 8, red);
+      int rdTmp = random(2);
+      if (rdTmp) tft.fillRect(96 + i * 8, 72 + j * 8, 8, 8, red);
     }
   }
 }

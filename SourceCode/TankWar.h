@@ -1,32 +1,33 @@
-int stateVietNam, stateAmerica1, stateAmerica2, stateAmerica3, stateAmerica4;
+// State of gun direction
+int stateVietNamTankWar, stateAmerica1TankWar, stateAmerica2TankWar, stateAmerica3TankWar, stateAmerica4TankWar;
 
-coordinates vietNam, america1, america2, america3, america4;
+coordinates vietNamTankWar, america1TankWar, america2TankWar, america3TankWar, america4TankWar;
 
-void drawVietNam() {
-  switch (stateVietNam) {
+void drawVietNamTankWar() {
+  switch (stateVietNamTankWar) {
     case 1:
-      tft.fillRoundRect(vietNam.x * 8, vietNam.y * 8, 24, 24, 5, red);
-      tft.fillRoundRect(vietNam.x * 8 + 6, vietNam.y * 8 + 8, 12, 12, 3, yellow);
-      tft.fillRect(vietNam.x * 8 + 10, vietNam.y * 8 + 2, 4, 6, indigo);
+      tft.fillRoundRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, 5, red);
+      tft.fillRoundRect(vietNamTankWar.x * 8 + 6, vietNamTankWar.y * 8 + 8, 12, 12, 3, yellow);
+      tft.fillRect(vietNamTankWar.x * 8 + 10, vietNamTankWar.y * 8 + 2, 4, 6, indigo);
       break;
     case 2:
-      tft.fillRoundRect(vietNam.x * 8, vietNam.y * 8, 24, 24, 5, red);
-      tft.fillRoundRect(vietNam.x * 8 + 4, vietNam.y * 8 + 6, 12, 12, 3, yellow);
-      tft.fillRect(vietNam.x * 8 + 16, vietNam.y * 8 + 10, 6, 4, indigo);
+      tft.fillRoundRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, 5, red);
+      tft.fillRoundRect(vietNamTankWar.x * 8 + 4, vietNamTankWar.y * 8 + 6, 12, 12, 3, yellow);
+      tft.fillRect(vietNamTankWar.x * 8 + 16, vietNamTankWar.y * 8 + 10, 6, 4, indigo);
       break;
     case 3:
-      tft.fillRoundRect(vietNam.x * 8, vietNam.y * 8, 24, 24, 5, red);
-      tft.fillRoundRect(vietNam.x * 8 + 6, vietNam.y * 8 + 4, 12, 12, 3, yellow);
-      tft.fillRect(vietNam.x * 8 + 10, vietNam.y * 8 + 16, 4, 6, indigo);
+      tft.fillRoundRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, 5, red);
+      tft.fillRoundRect(vietNamTankWar.x * 8 + 6, vietNamTankWar.y * 8 + 4, 12, 12, 3, yellow);
+      tft.fillRect(vietNamTankWar.x * 8 + 10, vietNamTankWar.y * 8 + 16, 4, 6, indigo);
       break;
     default:
-      tft.fillRoundRect(vietNam.x * 8, vietNam.y * 8, 24, 24, 5, red);
-      tft.fillRoundRect(vietNam.x * 8 + 8, vietNam.y * 8 + 6, 12, 12, 3, yellow);
-      tft.fillRect(vietNam.x * 8 + 2, vietNam.y * 8 + 10, 6, 4, indigo);
+      tft.fillRoundRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, 5, red);
+      tft.fillRoundRect(vietNamTankWar.x * 8 + 8, vietNamTankWar.y * 8 + 6, 12, 12, 3, yellow);
+      tft.fillRect(vietNamTankWar.x * 8 + 2, vietNamTankWar.y * 8 + 10, 6, 4, indigo);
   }
 }
 
-void drawAmerica(int x, int y, int state) {
+void drawAmericaTankWar(int x, int y, int state) {
   switch (state) {
     case 1:
       tft.fillRoundRect(x * 8, y * 8, 24, 24, 5, indigo);
@@ -50,113 +51,129 @@ void drawAmerica(int x, int y, int state) {
   }
 }
 
-bool killAmerica(int x, int y) {
-  if (america1.x <= x && x <= america1.x + 2 && america1.y <= y && y <= america1.y + 2) {
-    tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
+// (x, y) is coordinates of Viet Nam bullet
+bool killAmericaTankWar(int x, int y) {
+  if (america1TankWar.x <= x && x <= america1TankWar.x + 2 && america1TankWar.y <= y && y <= america1TankWar.y + 2) {
+    tft.fillRect(america1TankWar.x * 8, america1TankWar.y * 8, 24, 24, black);
+    tone(buzzer, 349, 120);
     increaseScore();
-    america1.x = 3;
-    america1.y = 3;
-    drawAmerica(3, 3, 3);
+    america1TankWar.x = 3;
+    america1TankWar.y = 3;
+    drawAmericaTankWar(3, 3, 3);
     return true;
   }
-  if (america2.x <= x && x <= america2.x + 2 && america2.y <= y && y <= america2.y + 2) {
-    tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
+  if (america2TankWar.x <= x && x <= america2TankWar.x + 2 && america2TankWar.y <= y && y <= america2TankWar.y + 2) {
+    tft.fillRect(america2TankWar.x * 8, america2TankWar.y * 8, 24, 24, black);
+    tone(buzzer, 349, 120);
     increaseScore();
-    america2.x = 24;
-    america2.y = 3;
-    drawAmerica(24, 3, 3);
+    america2TankWar.x = 24;
+    america2TankWar.y = 3;
+    drawAmericaTankWar(24, 3, 3);
     return true;
   }
-  if (america3.x <= x && x <= america3.x + 2 && america3.y <= y && y <= america3.y + 2) {
-    tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
+  if (america3TankWar.x <= x && x <= america3TankWar.x + 2 && america3TankWar.y <= y && y <= america3TankWar.y + 2) {
+    tft.fillRect(america3TankWar.x * 8, america3TankWar.y * 8, 24, 24, black);
+    tone(buzzer, 349, 120);
     increaseScore();
-    america3.x = 24;
-    america3.y = 24;
-    drawAmerica(24, 24, 1);
+    america3TankWar.x = 24;
+    america3TankWar.y = 24;
+    drawAmericaTankWar(24, 24, 1);
     return true;
   }
-  if (america4.x <= x && x <= america4.x + 2 && america4.y <= y && y <= america4.y + 2) {
-    tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
+  if (america4TankWar.x <= x && x <= america4TankWar.x + 2 && america4TankWar.y <= y && y <= america4TankWar.y + 2) {
+    tft.fillRect(america4TankWar.x * 8, america4TankWar.y * 8, 24, 24, black);
+    tone(buzzer, 349, 120);
     increaseScore();
-    america4.x = 3;
-    america4.y = 24;
-    drawAmerica(3, 24, 1);
+    america4TankWar.x = 3;
+    america4TankWar.y = 24;
+    drawAmericaTankWar(3, 24, 1);
     return true;
   }
   return false;
 }
 
-void shootAmerica() {
-  switch (stateVietNam) {
+void shootAmericaTankWar() {
+  switch (stateVietNamTankWar) {
     case 1:
-      for (int i = vietNam.y - 1; i >= 0; --i) {
-        tft.fillRoundRect(vietNam.x * 8 + 8, i * 8, 8, 8, 3, white);
+      // Fly bullet animation
+      for (int i = vietNamTankWar.y - 1; i >= 0; --i) {
+        tft.fillRoundRect(vietNamTankWar.x * 8 + 8, i * 8, 8, 8, 3, white);
         delay(10);
-        if (killAmerica(vietNam.x + 1, i)) break;
-        tft.fillRect(vietNam.x * 8 + 8, i * 8, 8, 8, black);
+        if (killAmericaTankWar(vietNamTankWar.x + 1, i)) break;
+        tft.fillRect(vietNamTankWar.x * 8 + 8, i * 8, 8, 8, black);
         delay(10);
       }
       break;
     case 2:
-      for (int i = vietNam.x + 4; i < 30; ++i) {
-        tft.fillRoundRect(i * 8, vietNam.y * 8 + 8, 8, 8, 3, white);
+      for (int i = vietNamTankWar.x + 4; i < 30; ++i) {
+        tft.fillRoundRect(i * 8, vietNamTankWar.y * 8 + 8, 8, 8, 3, white);
         delay(10);
-        if (killAmerica(i, vietNam.y + 1)) break;
-        tft.fillRect(i * 8, vietNam.y * 8 + 8, 8, 8, black);
+        if (killAmericaTankWar(i, vietNamTankWar.y + 1)) break;
+        tft.fillRect(i * 8, vietNamTankWar.y * 8 + 8, 8, 8, black);
         delay(10);
       }
       break;
     case 3:
-      for (int i = vietNam.y + 4; i < 30; ++i) {
-        tft.fillRoundRect(vietNam.x * 8 + 8, i * 8, 8, 8, 3, white);
+      for (int i = vietNamTankWar.y + 4; i < 30; ++i) {
+        tft.fillRoundRect(vietNamTankWar.x * 8 + 8, i * 8, 8, 8, 3, white);
         delay(10);
-        if (killAmerica(vietNam.x + 1, i)) break;
-        tft.fillRect(vietNam.x * 8 + 8, i * 8, 8, 8, black);
+        if (killAmericaTankWar(vietNamTankWar.x + 1, i)) break;
+        tft.fillRect(vietNamTankWar.x * 8 + 8, i * 8, 8, 8, black);
         delay(10);
       }
       break;
     default:
-      for (int i = vietNam.x - 1; i >= 0; --i) {
-        tft.fillRoundRect(i * 8, vietNam.y * 8 + 8, 8, 8, 3, white);
+      for (int i = vietNamTankWar.x - 1; i >= 0; --i) {
+        tft.fillRoundRect(i * 8, vietNamTankWar.y * 8 + 8, 8, 8, 3, white);
         delay(10);
-        if (killAmerica(i, vietNam.y + 1)) break;
-        tft.fillRect(i * 8, vietNam.y * 8 + 8, 8, 8, black);
+        if (killAmericaTankWar(i, vietNamTankWar.y + 1)) break;
+        tft.fillRect(i * 8, vietNamTankWar.y * 8 + 8, 8, 8, black);
         delay(10);
       }
   }
 }
 
-void runVietNam() {
-  if (!digitalRead(top) && vietNam.y) {
-    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);
-    --vietNam.y;
-    stateVietNam = 1;
-    drawVietNam();
-  } else if (!digitalRead(right) && vietNam.x != 27) {
-    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);
-    ++vietNam.x;
-    stateVietNam = 2;
-    drawVietNam();
-  } else if (!digitalRead(bottom) && vietNam.y != 27) {
-    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);
-    ++vietNam.y;
-    stateVietNam = 3;
-    drawVietNam();
-  } else if (!digitalRead(left) && vietNam.x) {
-    tft.fillRect(vietNam.x * 8, vietNam.y * 8, 24, 24, black);
-    --vietNam.x;
-    stateVietNam = 4;
-    drawVietNam();
+// Viet Nam moves top, right, bottom, left with state of gun direction
+void runVietNamTankWar() {
+  if (!digitalRead(top) && vietNamTankWar.y) {
+    tft.fillRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, black);
+    --vietNamTankWar.y;
+    stateVietNamTankWar = 1;
+    drawVietNamTankWar();
+  } else if (!digitalRead(right) && vietNamTankWar.x != 27) {
+    tft.fillRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, black);
+    ++vietNamTankWar.x;
+    stateVietNamTankWar = 2;
+    drawVietNamTankWar();
+  } else if (!digitalRead(bottom) && vietNamTankWar.y != 27) {
+    tft.fillRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, black);
+    ++vietNamTankWar.y;
+    stateVietNamTankWar = 3;
+    drawVietNamTankWar();
+  } else if (!digitalRead(left) && vietNamTankWar.x) {
+    tft.fillRect(vietNamTankWar.x * 8, vietNamTankWar.y * 8, 24, 24, black);
+    --vietNamTankWar.x;
+    stateVietNamTankWar = 4;
+    drawVietNamTankWar();
   }
 }
 
-bool shootVietNam(int x, int y, int state) {
+void hitAndRunVietNamTankWar() {
+  for (int i = 0; i < 5; ++i) {
+    runVietNamTankWar();
+    if (!digitalRead(enter)) shootAmericaTankWar();
+    delay(100);
+  }
+}
+
+// America shoot Viet Nam with coordinates (x, y) and gun direction state
+bool shootVietNamTankWar(int x, int y, int state) {
   switch (state) {
     case 1:
       for (int i = y - 1; i >= 0; --i) {
         tft.fillRoundRect(x * 8 + 8, i * 8, 8, 8, 3, white);
         delay(10);
-        if (vietNam.x <= x + 1 && x <= vietNam.x + 1 && vietNam.y <= i && i <= vietNam.y + 2) return true;
+        if (vietNamTankWar.x <= x + 1 && x <= vietNamTankWar.x + 1 && vietNamTankWar.y <= i && i <= vietNamTankWar.y + 2) return true;
         tft.fillRect(x * 8 + 8, i * 8, 8, 8, black);
         delay(10);
       }
@@ -165,7 +182,7 @@ bool shootVietNam(int x, int y, int state) {
       for (int i = x + 4; i < 30; ++i) {
         tft.fillRoundRect(i * 8, y * 8 + 8, 8, 8, 3, white);
         delay(10);
-        if (vietNam.x <= i && i <= vietNam.x + 2 && vietNam.y <= y + 1 && y <= vietNam.y + 1) return true;
+        if (vietNamTankWar.x <= i && i <= vietNamTankWar.x + 2 && vietNamTankWar.y <= y + 1 && y <= vietNamTankWar.y + 1) return true;
         tft.fillRect(i * 8, y * 8 + 8, 8, 8, black);
         delay(10);
       }
@@ -174,7 +191,7 @@ bool shootVietNam(int x, int y, int state) {
       for (int i = y + 4; i < 30; ++i) {
         tft.fillRoundRect(x * 8 + 8, i * 8, 8, 8, 3, white);
         delay(10);
-        if (vietNam.x <= x + 1 && x <= vietNam.x + 1 && vietNam.y <= i && i <= vietNam.y + 2) return true;
+        if (vietNamTankWar.x <= x + 1 && x <= vietNamTankWar.x + 1 && vietNamTankWar.y <= i && i <= vietNamTankWar.y + 2) return true;
         tft.fillRect(x * 8 + 8, i * 8, 8, 8, black);
         delay(10);
       }
@@ -183,7 +200,7 @@ bool shootVietNam(int x, int y, int state) {
       for (int i = x - 1; i >= 0; --i) {
         tft.fillRoundRect(i * 8, y * 8 + 8, 8, 8, 3, white);
         delay(10);
-        if (vietNam.x <= i && i <= vietNam.x + 2 && vietNam.y <= y + 1 && y <= vietNam.y + 1) return true;
+        if (vietNamTankWar.x <= i && i <= vietNamTankWar.x + 2 && vietNamTankWar.y <= y + 1 && y <= vietNamTankWar.y + 1) return true;
         tft.fillRect(i * 8, y * 8 + 8, 8, 8, black);
         delay(10);
       }
@@ -191,293 +208,289 @@ bool shootVietNam(int x, int y, int state) {
   }
 }
 
-void hitAndRunVietNam() {
-  for (int i = 0; i < 5; ++i) {
-    runVietNam();
-    if (!digitalRead(enter)) shootAmerica();
-    delay(100);
-  }
-}
-
-bool checkHARA1(int state) {
+// Do not shoot teammate
+bool checkHitAndRunAmerica1TankWar(int state) {
   switch (state) {
     case 1: 
-      if (vietNam.x > america1.x - 2 && vietNam.x < america1.x + 2 && vietNam.y < america1.y) return true;
-      if (america2.x > america1.x - 2 && america2.x < america1.x + 2 && america2.y < america1.y) return false;
-      if (america3.x > america1.x - 2 && america3.x < america1.x + 2 && america3.y < america1.y) return false;
-      if (america4.x > america1.x - 2 && america4.x < america1.x + 2 && america4.y < america1.y) return false;
+      if (vietNamTankWar.x > america1TankWar.x - 2 && vietNamTankWar.x < america1TankWar.x + 2 && vietNamTankWar.y < america1TankWar.y) return true;
+      if (america2TankWar.x > america1TankWar.x - 2 && america2TankWar.x < america1TankWar.x + 2 && america2TankWar.y < america1TankWar.y) return false;
+      if (america3TankWar.x > america1TankWar.x - 2 && america3TankWar.x < america1TankWar.x + 2 && america3TankWar.y < america1TankWar.y) return false;
+      if (america4TankWar.x > america1TankWar.x - 2 && america4TankWar.x < america1TankWar.x + 2 && america4TankWar.y < america1TankWar.y) return false;
       return true;
     case 2:
-      if (vietNam.y > america1.y - 2 && vietNam.y < america1.y + 2 && vietNam.x > america1.x) return true;
-      if (america2.y > america1.y - 2 && america2.y < america1.y + 2 && america2.x > america1.x) return false;
-      if (america3.y > america1.y - 2 && america3.y < america1.y + 2 && america3.x > america1.x) return false;
-      if (america4.y > america1.y - 2 && america4.y < america1.y + 2 && america4.x > america1.x) return false;
+      if (vietNamTankWar.y > america1TankWar.y - 2 && vietNamTankWar.y < america1TankWar.y + 2 && vietNamTankWar.x > america1TankWar.x) return true;
+      if (america2TankWar.y > america1TankWar.y - 2 && america2TankWar.y < america1TankWar.y + 2 && america2TankWar.x > america1TankWar.x) return false;
+      if (america3TankWar.y > america1TankWar.y - 2 && america3TankWar.y < america1TankWar.y + 2 && america3TankWar.x > america1TankWar.x) return false;
+      if (america4TankWar.y > america1TankWar.y - 2 && america4TankWar.y < america1TankWar.y + 2 && america4TankWar.x > america1TankWar.x) return false;
       return true;
     case 3: 
-      if (vietNam.x > america1.x - 2 && vietNam.x < america1.x + 2 && vietNam.y > america1.y) return true;
-      if (america2.x > america1.x - 2 && america2.x < america1.x + 2 && america2.y > america1.y) return false;
-      if (america3.x > america1.x - 2 && america3.x < america1.x + 2 && america3.y > america1.y) return false;
-      if (america4.x > america1.x - 2 && america4.x < america1.x + 2 && america4.y > america1.y) return false;
+      if (vietNamTankWar.x > america1TankWar.x - 2 && vietNamTankWar.x < america1TankWar.x + 2 && vietNamTankWar.y > america1TankWar.y) return true;
+      if (america2TankWar.x > america1TankWar.x - 2 && america2TankWar.x < america1TankWar.x + 2 && america2TankWar.y > america1TankWar.y) return false;
+      if (america3TankWar.x > america1TankWar.x - 2 && america3TankWar.x < america1TankWar.x + 2 && america3TankWar.y > america1TankWar.y) return false;
+      if (america4TankWar.x > america1TankWar.x - 2 && america4TankWar.x < america1TankWar.x + 2 && america4TankWar.y > america1TankWar.y) return false;
       return true;
     default:
-      if (vietNam.y > america1.y - 2 && vietNam.y < america1.y + 2 && vietNam.x < america1.x) return true;
-      if (america2.y > america1.y - 2 && america2.y < america1.y + 2 && america2.x < america1.x) return false;
-      if (america3.y > america1.y - 2 && america3.y < america1.y + 2 && america3.x < america1.x) return false;
-      if (america4.y > america1.y - 2 && america4.y < america1.y + 2 && america4.x < america1.x) return false;
+      if (vietNamTankWar.y > america1TankWar.y - 2 && vietNamTankWar.y < america1TankWar.y + 2 && vietNamTankWar.x < america1TankWar.x) return true;
+      if (america2TankWar.y > america1TankWar.y - 2 && america2TankWar.y < america1TankWar.y + 2 && america2TankWar.x < america1TankWar.x) return false;
+      if (america3TankWar.y > america1TankWar.y - 2 && america3TankWar.y < america1TankWar.y + 2 && america3TankWar.x < america1TankWar.x) return false;
+      if (america4TankWar.y > america1TankWar.y - 2 && america4TankWar.y < america1TankWar.y + 2 && america4TankWar.x < america1TankWar.x) return false;
       return true;
   }
 }
 
-bool hitAndRunAmerica1() {
+bool hitAndRunAmerica1TankWar() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america1.y > 3) {
-      stateAmerica1 = 1;
-      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
-      --america1.y;
-      drawAmerica(america1.x, america1.y, 1);
-      hitAndRunVietNam();
-      if (checkHARA1(1) && shootVietNam(america1.x, america1.y, 1)) return true;
+    if (rd == 1 && america1TankWar.y > 3) {
+      stateAmerica1TankWar = 1;
+      tft.fillRect(america1TankWar.x * 8, america1TankWar.y * 8, 24, 24, black);
+      --america1TankWar.y;
+      drawAmericaTankWar(america1TankWar.x, america1TankWar.y, 1);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica1TankWar(1) && shootVietNamTankWar(america1TankWar.x, america1TankWar.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america1.x < 24) {
-      stateAmerica1 = 2;
-      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
-      ++america1.x;
-      drawAmerica(america1.x, america1.y, 2);
-      hitAndRunVietNam();
-      if (checkHARA1(2) && shootVietNam(america1.x, america1.y, 2)) return true;
+    if (rd == 2 && america1TankWar.x < 24) {
+      stateAmerica1TankWar = 2;
+      tft.fillRect(america1TankWar.x * 8, america1TankWar.y * 8, 24, 24, black);
+      ++america1TankWar.x;
+      drawAmericaTankWar(america1TankWar.x, america1TankWar.y, 2);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica1TankWar(2) && shootVietNamTankWar(america1TankWar.x, america1TankWar.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america1.y < 24) {
-      stateAmerica1 = 3;
-      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
-      ++america1.y;
-      drawAmerica(america1.x, america1.y, 3);
-      hitAndRunVietNam();
-      if (checkHARA1(3) && shootVietNam(america1.x, america1.y, 3)) return true;
+    if (rd == 3 && america1TankWar.y < 24) {
+      stateAmerica1TankWar = 3;
+      tft.fillRect(america1TankWar.x * 8, america1TankWar.y * 8, 24, 24, black);
+      ++america1TankWar.y;
+      drawAmericaTankWar(america1TankWar.x, america1TankWar.y, 3);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica1TankWar(3) && shootVietNamTankWar(america1TankWar.x, america1TankWar.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america1.x > 3) {
-      stateAmerica1 = 4;
-      tft.fillRect(america1.x * 8, america1.y * 8, 24, 24, black);
-      --america1.x;
-      drawAmerica(america1.x, america1.y, 4);
-      hitAndRunVietNam();
-      if (checkHARA1(4) && shootVietNam(america1.x, america1.y, 4)) return true;
+    if (rd == 4 && america1TankWar.x > 3) {
+      stateAmerica1TankWar = 4;
+      tft.fillRect(america1TankWar.x * 8, america1TankWar.y * 8, 24, 24, black);
+      --america1TankWar.x;
+      drawAmericaTankWar(america1TankWar.x, america1TankWar.y, 4);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica1TankWar(4) && shootVietNamTankWar(america1TankWar.x, america1TankWar.y, 4)) return true;
       return false;
     }
   }
 }
 
-bool checkHARA2(int state) {
+// Do not shoot teammate
+bool checkHitAndRunAmerica2TankWar(int state) {
   switch (state) {
     case 1: 
-      if (vietNam.x > america2.x - 2 && vietNam.x < america2.x + 2 && vietNam.y < america2.y) return true;
-      if (america1.x > america2.x - 2 && america1.x < america2.x + 2 && america1.y < america2.y) return false;
-      if (america3.x > america2.x - 2 && america3.x < america2.x + 2 && america3.y < america2.y) return false;
-      if (america4.x > america2.x - 2 && america4.x < america2.x + 2 && america4.y < america2.y) return false;
+      if (vietNamTankWar.x > america2TankWar.x - 2 && vietNamTankWar.x < america2TankWar.x + 2 && vietNamTankWar.y < america2TankWar.y) return true;
+      if (america1TankWar.x > america2TankWar.x - 2 && america1TankWar.x < america2TankWar.x + 2 && america1TankWar.y < america2TankWar.y) return false;
+      if (america3TankWar.x > america2TankWar.x - 2 && america3TankWar.x < america2TankWar.x + 2 && america3TankWar.y < america2TankWar.y) return false;
+      if (america4TankWar.x > america2TankWar.x - 2 && america4TankWar.x < america2TankWar.x + 2 && america4TankWar.y < america2TankWar.y) return false;
       return true;
     case 2:
-      if (vietNam.y > america2.y - 2 && vietNam.y < america2.y + 2 && vietNam.x > america2.x) return true;
-      if (america1.y > america2.y - 2 && america1.y < america2.y + 2 && america1.x > america2.x) return false;
-      if (america3.y > america2.y - 2 && america3.y < america2.y + 2 && america3.x > america2.x) return false;
-      if (america4.y > america2.y - 2 && america4.y < america2.y + 2 && america4.x > america2.x) return false;
+      if (vietNamTankWar.y > america2TankWar.y - 2 && vietNamTankWar.y < america2TankWar.y + 2 && vietNamTankWar.x > america2TankWar.x) return true;
+      if (america1TankWar.y > america2TankWar.y - 2 && america1TankWar.y < america2TankWar.y + 2 && america1TankWar.x > america2TankWar.x) return false;
+      if (america3TankWar.y > america2TankWar.y - 2 && america3TankWar.y < america2TankWar.y + 2 && america3TankWar.x > america2TankWar.x) return false;
+      if (america4TankWar.y > america2TankWar.y - 2 && america4TankWar.y < america2TankWar.y + 2 && america4TankWar.x > america2TankWar.x) return false;
       return true;
     case 3: 
-      if (vietNam.x > america2.x - 2 && vietNam.x < america2.x + 2 && vietNam.y > america2.y) return true;
-      if (america1.x > america2.x - 2 && america1.x < america2.x + 2 && america1.y > america2.y) return false;
-      if (america3.x > america2.x - 2 && america3.x < america2.x + 2 && america3.y > america2.y) return false;
-      if (america4.x > america2.x - 2 && america4.x < america2.x + 2 && america4.y > america2.y) return false;
+      if (vietNamTankWar.x > america2TankWar.x - 2 && vietNamTankWar.x < america2TankWar.x + 2 && vietNamTankWar.y > america2TankWar.y) return true;
+      if (america1TankWar.x > america2TankWar.x - 2 && america1TankWar.x < america2TankWar.x + 2 && america1TankWar.y > america2TankWar.y) return false;
+      if (america3TankWar.x > america2TankWar.x - 2 && america3TankWar.x < america2TankWar.x + 2 && america3TankWar.y > america2TankWar.y) return false;
+      if (america4TankWar.x > america2TankWar.x - 2 && america4TankWar.x < america2TankWar.x + 2 && america4TankWar.y > america2TankWar.y) return false;
       return true;
     default:
-      if (vietNam.y > america2.y - 2 && vietNam.y < america2.y + 2 && vietNam.x < america2.x) return true;
-      if (america1.y > america2.y - 2 && america1.y < america2.y + 2 && america1.x < america2.x) return false;
-      if (america3.y > america2.y - 2 && america3.y < america2.y + 2 && america3.x < america2.x) return false;
-      if (america4.y > america2.y - 2 && america4.y < america2.y + 2 && america4.x < america2.x) return false;
+      if (vietNamTankWar.y > america2TankWar.y - 2 && vietNamTankWar.y < america2TankWar.y + 2 && vietNamTankWar.x < america2TankWar.x) return true;
+      if (america1TankWar.y > america2TankWar.y - 2 && america1TankWar.y < america2TankWar.y + 2 && america1TankWar.x < america2TankWar.x) return false;
+      if (america3TankWar.y > america2TankWar.y - 2 && america3TankWar.y < america2TankWar.y + 2 && america3TankWar.x < america2TankWar.x) return false;
+      if (america4TankWar.y > america2TankWar.y - 2 && america4TankWar.y < america2TankWar.y + 2 && america4TankWar.x < america2TankWar.x) return false;
       return true;
   }
 }
 
-bool hitAndRunAmerica2() {
+bool hitAndRunAmerica2TankWar() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america2.y > 3) {
-      stateAmerica2 = 1;
-      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
-      --america2.y;
-      drawAmerica(america2.x, america2.y, 1);
-      hitAndRunVietNam();
-      if (checkHARA2(1) && shootVietNam(america2.x, america2.y, 1)) return true;
+    if (rd == 1 && america2TankWar.y > 3) {
+      stateAmerica2TankWar = 1;
+      tft.fillRect(america2TankWar.x * 8, america2TankWar.y * 8, 24, 24, black);
+      --america2TankWar.y;
+      drawAmericaTankWar(america2TankWar.x, america2TankWar.y, 1);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica2TankWar(1) && shootVietNamTankWar(america2TankWar.x, america2TankWar.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america2.x < 24) {
-      stateAmerica2 = 2;
-      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
-      ++america2.x;
-      drawAmerica(america2.x, america2.y, 2);
-      hitAndRunVietNam();
-      if (checkHARA2(2) && shootVietNam(america2.x, america2.y, 2)) return true;
+    if (rd == 2 && america2TankWar.x < 24) {
+      stateAmerica2TankWar = 2;
+      tft.fillRect(america2TankWar.x * 8, america2TankWar.y * 8, 24, 24, black);
+      ++america2TankWar.x;
+      drawAmericaTankWar(america2TankWar.x, america2TankWar.y, 2);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica2TankWar(2) && shootVietNamTankWar(america2TankWar.x, america2TankWar.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america2.y < 24) {
-      stateAmerica2 = 3;
-      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
-      ++america2.y;
-      drawAmerica(america2.x, america2.y, 3);
-      hitAndRunVietNam();
-      if (checkHARA2(3) && shootVietNam(america2.x, america2.y, 3)) return true;
+    if (rd == 3 && america2TankWar.y < 24) {
+      stateAmerica2TankWar = 3;
+      tft.fillRect(america2TankWar.x * 8, america2TankWar.y * 8, 24, 24, black);
+      ++america2TankWar.y;
+      drawAmericaTankWar(america2TankWar.x, america2TankWar.y, 3);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica2TankWar(3) && shootVietNamTankWar(america2TankWar.x, america2TankWar.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america2.x > 3) {
-      stateAmerica2 = 4;
-      tft.fillRect(america2.x * 8, america2.y * 8, 24, 24, black);
-      --america2.x;
-      drawAmerica(america2.x, america2.y, 4);
-      hitAndRunVietNam();
-      if (checkHARA2(4) && shootVietNam(america2.x, america2.y, 4)) return true;
+    if (rd == 4 && america2TankWar.x > 3) {
+      stateAmerica2TankWar = 4;
+      tft.fillRect(america2TankWar.x * 8, america2TankWar.y * 8, 24, 24, black);
+      --america2TankWar.x;
+      drawAmericaTankWar(america2TankWar.x, america2TankWar.y, 4);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica2TankWar(4) && shootVietNamTankWar(america2TankWar.x, america2TankWar.y, 4)) return true;
       return false;
     }
   }
 }
 
-bool checkHARA3(int state) {
+// Do not shoot teammate
+bool checkHitAndRunAmerica3TankWar(int state) {
   switch (state) {
     case 1: 
-      if (vietNam.x > america3.x - 2 && vietNam.x < america3.x + 2 && vietNam.y < america3.y) return true;
-      if (america1.x > america3.x - 2 && america1.x < america3.x + 2 && america1.y < america3.y) return false;
-      if (america2.x > america3.x - 2 && america2.x < america3.x + 2 && america2.y < america3.y) return false;
-      if (america4.x > america3.x - 2 && america4.x < america3.x + 2 && america4.y < america3.y) return false;
+      if (vietNamTankWar.x > america3TankWar.x - 2 && vietNamTankWar.x < america3TankWar.x + 2 && vietNamTankWar.y < america3TankWar.y) return true;
+      if (america1TankWar.x > america3TankWar.x - 2 && america1TankWar.x < america3TankWar.x + 2 && america1TankWar.y < america3TankWar.y) return false;
+      if (america2TankWar.x > america3TankWar.x - 2 && america2TankWar.x < america3TankWar.x + 2 && america2TankWar.y < america3TankWar.y) return false;
+      if (america4TankWar.x > america3TankWar.x - 2 && america4TankWar.x < america3TankWar.x + 2 && america4TankWar.y < america3TankWar.y) return false;
       return true;
     case 2:
-      if (vietNam.y > america3.y - 2 && vietNam.y < america3.y + 2 && vietNam.x > america3.x) return true;
-      if (america1.y > america3.y - 2 && america1.y < america3.y + 2 && america1.x > america3.x) return false;
-      if (america2.y > america3.y - 2 && america2.y < america3.y + 2 && america2.x > america3.x) return false;
-      if (america4.y > america3.y - 2 && america4.y < america3.y + 2 && america4.x > america3.x) return false;
+      if (vietNamTankWar.y > america3TankWar.y - 2 && vietNamTankWar.y < america3TankWar.y + 2 && vietNamTankWar.x > america3TankWar.x) return true;
+      if (america1TankWar.y > america3TankWar.y - 2 && america1TankWar.y < america3TankWar.y + 2 && america1TankWar.x > america3TankWar.x) return false;
+      if (america2TankWar.y > america3TankWar.y - 2 && america2TankWar.y < america3TankWar.y + 2 && america2TankWar.x > america3TankWar.x) return false;
+      if (america4TankWar.y > america3TankWar.y - 2 && america4TankWar.y < america3TankWar.y + 2 && america4TankWar.x > america3TankWar.x) return false;
       return true;
     case 3: 
-      if (vietNam.x > america3.x - 2 && vietNam.x < america3.x + 2 && vietNam.y > america3.y) return true;
-      if (america1.x > america3.x - 2 && america1.x < america3.x + 2 && america1.y > america3.y) return false;
-      if (america2.x > america3.x - 2 && america2.x < america3.x + 2 && america2.y > america3.y) return false;
-      if (america4.x > america3.x - 2 && america4.x < america3.x + 2 && america4.y > america3.y) return false;
+      if (vietNamTankWar.x > america3TankWar.x - 2 && vietNamTankWar.x < america3TankWar.x + 2 && vietNamTankWar.y > america3TankWar.y) return true;
+      if (america1TankWar.x > america3TankWar.x - 2 && america1TankWar.x < america3TankWar.x + 2 && america1TankWar.y > america3TankWar.y) return false;
+      if (america2TankWar.x > america3TankWar.x - 2 && america2TankWar.x < america3TankWar.x + 2 && america2TankWar.y > america3TankWar.y) return false;
+      if (america4TankWar.x > america3TankWar.x - 2 && america4TankWar.x < america3TankWar.x + 2 && america4TankWar.y > america3TankWar.y) return false;
       return true;
     default:
-      if (vietNam.y > america3.y - 2 && vietNam.y < america3.y + 2 && vietNam.x < america3.x) return true;
-      if (america1.y > america3.y - 2 && america1.y < america3.y + 2 && america1.x < america3.x) return false;
-      if (america2.y > america3.y - 2 && america2.y < america3.y + 2 && america2.x < america3.x) return false;
-      if (america4.y > america3.y - 2 && america4.y < america3.y + 2 && america4.x < america3.x) return false;
+      if (vietNamTankWar.y > america3TankWar.y - 2 && vietNamTankWar.y < america3TankWar.y + 2 && vietNamTankWar.x < america3TankWar.x) return true;
+      if (america1TankWar.y > america3TankWar.y - 2 && america1TankWar.y < america3TankWar.y + 2 && america1TankWar.x < america3TankWar.x) return false;
+      if (america2TankWar.y > america3TankWar.y - 2 && america2TankWar.y < america3TankWar.y + 2 && america2TankWar.x < america3TankWar.x) return false;
+      if (america4TankWar.y > america3TankWar.y - 2 && america4TankWar.y < america3TankWar.y + 2 && america4TankWar.x < america3TankWar.x) return false;
       return true;
   }
 }
 
-bool hitAndRunAmerica3() {
+bool hitAndRunAmerica3TankWar() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america3.y > 3) {
-      stateAmerica3 = 1;
-      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
-      --america3.y;
-      drawAmerica(america3.x, america3.y, 1);
-      hitAndRunVietNam();
-      if (checkHARA3(1) && shootVietNam(america3.x, america3.y, 1)) return true;
+    if (rd == 1 && america3TankWar.y > 3) {
+      stateAmerica3TankWar = 1;
+      tft.fillRect(america3TankWar.x * 8, america3TankWar.y * 8, 24, 24, black);
+      --america3TankWar.y;
+      drawAmericaTankWar(america3TankWar.x, america3TankWar.y, 1);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica3TankWar(1) && shootVietNamTankWar(america3TankWar.x, america3TankWar.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america3.x < 24) {
-      stateAmerica3 = 2;
-      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
-      ++america3.x;
-      drawAmerica(america3.x, america3.y, 2);
-      hitAndRunVietNam();
-      if (checkHARA3(2) && shootVietNam(america3.x, america3.y, 2)) return true;
+    if (rd == 2 && america3TankWar.x < 24) {
+      stateAmerica3TankWar = 2;
+      tft.fillRect(america3TankWar.x * 8, america3TankWar.y * 8, 24, 24, black);
+      ++america3TankWar.x;
+      drawAmericaTankWar(america3TankWar.x, america3TankWar.y, 2);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica3TankWar(2) && shootVietNamTankWar(america3TankWar.x, america3TankWar.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america3.y < 24) {
-      stateAmerica3 = 3;
-      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
-      ++america3.y;
-      drawAmerica(america3.x, america3.y, 3);
-      hitAndRunVietNam();
-      if (checkHARA3(3) && shootVietNam(america3.x, america3.y, 3)) return true;
+    if (rd == 3 && america3TankWar.y < 24) {
+      stateAmerica3TankWar = 3;
+      tft.fillRect(america3TankWar.x * 8, america3TankWar.y * 8, 24, 24, black);
+      ++america3TankWar.y;
+      drawAmericaTankWar(america3TankWar.x, america3TankWar.y, 3);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica3TankWar(3) && shootVietNamTankWar(america3TankWar.x, america3TankWar.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america3.x > 3) {
-      stateAmerica3 = 4;
-      tft.fillRect(america3.x * 8, america3.y * 8, 24, 24, black);
-      --america3.x;
-      drawAmerica(america3.x, america3.y, 4);
-      hitAndRunVietNam();
-      if (checkHARA3(4) && shootVietNam(america3.x, america3.y, 4)) return true;
+    if (rd == 4 && america3TankWar.x > 3) {
+      stateAmerica3TankWar = 4;
+      tft.fillRect(america3TankWar.x * 8, america3TankWar.y * 8, 24, 24, black);
+      --america3TankWar.x;
+      drawAmericaTankWar(america3TankWar.x, america3TankWar.y, 4);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica3TankWar(4) && shootVietNamTankWar(america3TankWar.x, america3TankWar.y, 4)) return true;
       return false;
     }
   }
 }
 
-bool checkHARA4(int state) {
+// Do not shoot teammate
+bool checkHitAndRunAmerica4TankWar(int state) {
   switch (state) {
     case 1: 
-      if (vietNam.x > america4.x - 2 && vietNam.x < america4.x + 2 && vietNam.y < america4.y) return true;
-      if (america1.x > america4.x - 2 && america1.x < america4.x + 2 && america1.y < america4.y) return false;
-      if (america2.x > america4.x - 2 && america2.x < america4.x + 2 && america2.y < america4.y) return false;
-      if (america3.x > america4.x - 2 && america3.x < america4.x + 2 && america3.y < america4.y) return false;
+      if (vietNamTankWar.x > america4TankWar.x - 2 && vietNamTankWar.x < america4TankWar.x + 2 && vietNamTankWar.y < america4TankWar.y) return true;
+      if (america1TankWar.x > america4TankWar.x - 2 && america1TankWar.x < america4TankWar.x + 2 && america1TankWar.y < america4TankWar.y) return false;
+      if (america2TankWar.x > america4TankWar.x - 2 && america2TankWar.x < america4TankWar.x + 2 && america2TankWar.y < america4TankWar.y) return false;
+      if (america3TankWar.x > america4TankWar.x - 2 && america3TankWar.x < america4TankWar.x + 2 && america3TankWar.y < america4TankWar.y) return false;
       return true;
     case 2:
-      if (vietNam.y > america4.y - 2 && vietNam.y < america4.y + 2 && vietNam.x > america4.x) return true;
-      if (america1.y > america4.y - 2 && america1.y < america4.y + 2 && america1.x > america4.x) return false;
-      if (america2.y > america4.y - 2 && america2.y < america4.y + 2 && america2.x > america4.x) return false;
-      if (america3.y > america4.y - 2 && america3.y < america4.y + 2 && america3.x > america4.x) return false;
+      if (vietNamTankWar.y > america4TankWar.y - 2 && vietNamTankWar.y < america4TankWar.y + 2 && vietNamTankWar.x > america4TankWar.x) return true;
+      if (america1TankWar.y > america4TankWar.y - 2 && america1TankWar.y < america4TankWar.y + 2 && america1TankWar.x > america4TankWar.x) return false;
+      if (america2TankWar.y > america4TankWar.y - 2 && america2TankWar.y < america4TankWar.y + 2 && america2TankWar.x > america4TankWar.x) return false;
+      if (america3TankWar.y > america4TankWar.y - 2 && america3TankWar.y < america4TankWar.y + 2 && america3TankWar.x > america4TankWar.x) return false;
       return true;
     case 3: 
-      if (vietNam.x > america4.x - 2 && vietNam.x < america4.x + 2 && vietNam.y > america4.y) return true;
-      if (america1.x > america4.x - 2 && america1.x < america4.x + 2 && america1.y > america4.y) return false;
-      if (america2.x > america4.x - 2 && america2.x < america4.x + 2 && america2.y > america4.y) return false;
-      if (america3.x > america4.x - 2 && america3.x < america4.x + 2 && america3.y > america4.y) return false;
+      if (vietNamTankWar.x > america4TankWar.x - 2 && vietNamTankWar.x < america4TankWar.x + 2 && vietNamTankWar.y > america4TankWar.y) return true;
+      if (america1TankWar.x > america4TankWar.x - 2 && america1TankWar.x < america4TankWar.x + 2 && america1TankWar.y > america4TankWar.y) return false;
+      if (america2TankWar.x > america4TankWar.x - 2 && america2TankWar.x < america4TankWar.x + 2 && america2TankWar.y > america4TankWar.y) return false;
+      if (america3TankWar.x > america4TankWar.x - 2 && america3TankWar.x < america4TankWar.x + 2 && america3TankWar.y > america4TankWar.y) return false;
       return true;
     default:
-      if (vietNam.y > america4.y - 2 && vietNam.y < america4.y + 2 && vietNam.x < america4.x) return true;
-      if (america1.y > america4.y - 2 && america1.y < america4.y + 2 && america1.x < america4.x) return false;
-      if (america2.y > america4.y - 2 && america2.y < america4.y + 2 && america2.x < america4.x) return false;
-      if (america3.y > america4.y - 2 && america3.y < america4.y + 2 && america3.x < america4.x) return false;
+      if (vietNamTankWar.y > america4TankWar.y - 2 && vietNamTankWar.y < america4TankWar.y + 2 && vietNamTankWar.x < america4TankWar.x) return true;
+      if (america1TankWar.y > america4TankWar.y - 2 && america1TankWar.y < america4TankWar.y + 2 && america1TankWar.x < america4TankWar.x) return false;
+      if (america2TankWar.y > america4TankWar.y - 2 && america2TankWar.y < america4TankWar.y + 2 && america2TankWar.x < america4TankWar.x) return false;
+      if (america3TankWar.y > america4TankWar.y - 2 && america3TankWar.y < america4TankWar.y + 2 && america3TankWar.x < america4TankWar.x) return false;
       return true;
   }
 }
 
-bool hitAndRunAmerica4() {
+bool hitAndRunAmerica4TankWar() {
   while (1) {
     int rd = random(1, 5);
-    if (rd == 1 && america4.y > 3) {
-      stateAmerica4 = 1;
-      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
-      --america4.y;
-      drawAmerica(america4.x, america4.y, 1);
-      hitAndRunVietNam();
-      if (checkHARA4(1) && shootVietNam(america4.x, america4.y, 1)) return true;
+    if (rd == 1 && america4TankWar.y > 3) {
+      stateAmerica4TankWar = 1;
+      tft.fillRect(america4TankWar.x * 8, america4TankWar.y * 8, 24, 24, black);
+      --america4TankWar.y;
+      drawAmericaTankWar(america4TankWar.x, america4TankWar.y, 1);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica4TankWar(1) && shootVietNamTankWar(america4TankWar.x, america4TankWar.y, 1)) return true;
       return false;
     }
-    if (rd == 2 && america4.x < 24) {
-      stateAmerica4 = 2;
-      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
-      ++america4.x;
-      drawAmerica(america4.x, america4.y, 2);
-      hitAndRunVietNam();
-      if (checkHARA4(2) && shootVietNam(america4.x, america4.y, 2)) return true;
+    if (rd == 2 && america4TankWar.x < 24) {
+      stateAmerica4TankWar = 2;
+      tft.fillRect(america4TankWar.x * 8, america4TankWar.y * 8, 24, 24, black);
+      ++america4TankWar.x;
+      drawAmericaTankWar(america4TankWar.x, america4TankWar.y, 2);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica4TankWar(2) && shootVietNamTankWar(america4TankWar.x, america4TankWar.y, 2)) return true;
       return false;
     }
-    if (rd == 3 && america4.y < 24) {
-      stateAmerica4 = 3;
-      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
-      ++america4.y;
-      drawAmerica(america4.x, america4.y, 3);
-      hitAndRunVietNam();
-      if (checkHARA4(3) && shootVietNam(america4.x, america4.y, 3)) return true;
+    if (rd == 3 && america4TankWar.y < 24) {
+      stateAmerica4TankWar = 3;
+      tft.fillRect(america4TankWar.x * 8, america4TankWar.y * 8, 24, 24, black);
+      ++america4TankWar.y;
+      drawAmericaTankWar(america4TankWar.x, america4TankWar.y, 3);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica4TankWar(3) && shootVietNamTankWar(america4TankWar.x, america4TankWar.y, 3)) return true;
       return false;
     }
-    if (rd == 4 && america4.x > 3) {
-      stateAmerica4 = 4;
-      tft.fillRect(america4.x * 8, america4.y * 8, 24, 24, black);
-      --america4.x;
-      drawAmerica(america4.x, america4.y, 4);
-      hitAndRunVietNam();
-      if (checkHARA4(4) && shootVietNam(america4.x, america4.y, 4)) return true;
+    if (rd == 4 && america4TankWar.x > 3) {
+      stateAmerica4TankWar = 4;
+      tft.fillRect(america4TankWar.x * 8, america4TankWar.y * 8, 24, 24, black);
+      --america4TankWar.x;
+      drawAmericaTankWar(america4TankWar.x, america4TankWar.y, 4);
+      hitAndRunVietNamTankWar();
+      if (checkHitAndRunAmerica4TankWar(4) && shootVietNamTankWar(america4TankWar.x, america4TankWar.y, 4)) return true;
       return false;
     }
   }
@@ -486,58 +499,61 @@ bool hitAndRunAmerica4() {
 int newGameTankWar() {
   drawSubScreen(bestTankWar, 0);
 
-  vietNam.x = vietNam.y = 15;
-  america1.x = 3; america1.y = 3;
-  america2.x = 24; america2.y = 3;
-  america3.x = 24; america3.y = 24;
-  america4.x = 3; america4.y = 24;
+  // Init tank war
+  vietNamTankWar.x = vietNamTankWar.y = 15;
+  america1TankWar.x = 3; america1TankWar.y = 3;
+  america2TankWar.x = 24; america2TankWar.y = 3;
+  america3TankWar.x = 24; america3TankWar.y = 24;
+  america4TankWar.x = 3; america4TankWar.y = 24;
 
-  stateVietNam = 1;
-  stateAmerica1 = stateAmerica2 = 3;
-  stateAmerica3 = stateAmerica4 = 1;
+  stateVietNamTankWar = 1;
+  stateAmerica1TankWar = stateAmerica2TankWar = 3;
+  stateAmerica3TankWar = stateAmerica4TankWar = 1;
   
-  drawVietNam();
-  drawAmerica(3, 3, 3);
-  drawAmerica(24, 3, 3);
-  drawAmerica(24, 24, 1);
-  drawAmerica(3, 24, 1);
+  drawVietNamTankWar();
+  drawAmericaTankWar(3, 3, 3);
+  drawAmericaTankWar(24, 3, 3);
+  drawAmericaTankWar(24, 24, 1);
+  drawAmericaTankWar(3, 24, 1);
 
+  // Tank war actives
+  // Single thread so sequential activities
   while (1) {
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica1()) {
-      if (commonScore > bestTankWar) {
+    if (hitAndRunAmerica1TankWar()) {
+      if (commonScore > bestTankWar) { // Update best tank war
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
     } 
 
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica2()) {
+    if (hitAndRunAmerica2TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
     } 
 
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica3()) {
+    if (hitAndRunAmerica3TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
     } 
 
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica4()) {
+    if (hitAndRunAmerica4TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -548,48 +564,49 @@ int newGameTankWar() {
 int continueTankWar() {
   drawSubScreen(bestTankWar, 0);
 
-  drawVietNam();
-  drawAmerica(america1.x, america1.y, stateAmerica1);
-  drawAmerica(america2.x, america2.y, stateAmerica2);
-  drawAmerica(america3.x, america3.y, stateAmerica3);
-  drawAmerica(america4.x, america4.y, stateAmerica4);
+  // Continue statement
+  drawVietNamTankWar();
+  drawAmericaTankWar(america1TankWar.x, america1TankWar.y, stateAmerica1TankWar);
+  drawAmericaTankWar(america2TankWar.x, america2TankWar.y, stateAmerica2TankWar);
+  drawAmericaTankWar(america3TankWar.x, america3TankWar.y, stateAmerica3TankWar);
+  drawAmericaTankWar(america4TankWar.x, america4TankWar.y, stateAmerica4TankWar);
   
   while (1) {
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica1()) {
+    if (hitAndRunAmerica1TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
     } 
 
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica2()) {
+    if (hitAndRunAmerica2TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
     } 
 
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica3()) {
+    if (hitAndRunAmerica3TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
     } 
 
     if (!digitalRead(pau)) return 0;
-    if (hitAndRunAmerica4()) {
+    if (hitAndRunAmerica4TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(4, commonScore);
+        EEPROM.write(addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;

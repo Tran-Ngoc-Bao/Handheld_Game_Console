@@ -1,13 +1,13 @@
-int xMouse, yMouse;
+int xMouseMaze, yMouseMaze, sizeBlankMaze, sizeWallMaze, edgeMazeReal, edgeMazeVirtual, borMouseMaze, sizeMouseMaze;
 
-char maze[841];
+// Matrix of wall maze
+bool maze[3481], rowMaze[30][29], colMaze[30][29];
 
-bool rowMaze[15][14], colMaze[15][14];
-
+// Convert maze 1D to maze 2D
 void saveMaze() {
-  for (int y = 0; y < 29; ++y) {
-    for (int x = 0; x < 29; ++x) {
-      if (maze[y + 29 * x]) {  
+  for (int y = 0; y < edgeMazeVirtual; ++y) {
+    for (int x = 0; x < edgeMazeVirtual; ++x) {
+      if (maze[y + edgeMazeVirtual * x]) {  
         if (y % 2 && !(x % 2)) colMaze[x / 2][y / 2] = true;
         else if (!(y % 2) && x % 2) rowMaze[y / 2][x / 2] = true;
       } else {
@@ -19,148 +19,212 @@ void saveMaze() {
 }
 
 void carveMaze(int x, int y) {
-  int x1, y1, x2, y2, dx, dy;
-  int dir = random(4), count = 0;
-  while (count < 4) {
-    dx = dy = 0;
-    if (dir == 0) dx = 1;
-    else if (dir == 1) dy = 1;
-    else if (dir == 2) dx = -1;
-    else dy = -1;
-    x1 = x + dx;
-    y1 = y + dy;
-    x2 = x1 + dx;
-    y2 = y1 + dy;
-    if (x2 > 0 && x2 < 29 && y2 > 0 && y2 < 29 && maze[y1 * 29 + x1] == 1 && maze[y2 * 29 + x2] == 1) {
-      maze[y1 * 29 + x1] = maze[y2 * 29 + x2] = 0;
-      x = x2; 
-      y = y2;
-      dir = random(4);
-      count = 0;
+  int x1Tmp, y1Tmp, x2Tmp, y2Tmp, dxTmp, dyTmp;
+  int dirTmp = random(4), countTmp = 0;
+  while (countTmp < 4) {
+    dxTmp = dyTmp = 0;
+
+    if (dirTmp == 0) dxTmp = 1;
+    else if (dirTmp == 1) dyTmp = 1;
+    else if (dirTmp == 2) dxTmp = -1;
+    else dyTmp = -1;
+
+    x1Tmp = x + dxTmp;
+    y1Tmp = y + dyTmp;
+    x2Tmp = x1Tmp + dxTmp;
+    y2Tmp = y1Tmp + dyTmp;
+
+    // Check maze is always soluted
+    if (x2Tmp > 0 && x2Tmp < edgeMazeVirtual && y2Tmp > 0 && y2Tmp < edgeMazeVirtual && maze[y1Tmp * edgeMazeVirtual + x1Tmp] == 1 && maze[y2Tmp * edgeMazeVirtual + x2Tmp] == 1) {
+      maze[y1Tmp * edgeMazeVirtual + x1Tmp] = maze[y2Tmp * edgeMazeVirtual + x2Tmp] = false;
+      x = x2Tmp; 
+      y = y2Tmp;
+      dirTmp = random(4);
+      countTmp = 0;
     } else {
-      dir = (dir + 1) % 4;
-      ++count;
+      dirTmp = (dirTmp + 1) % 4;
+      ++countTmp;
     }
   }
 }
 
+// Generate maze 1D
 void generateMaze() {
-  for (int x = 0; x < 841; ++x) maze[x] = 1;
-  maze[30] = 0;
-  for (int y = 1; y < 29; y += 2) {
-    for (int x = 1; x < 29; x += 2) carveMaze(x, y);
+  int edgeEdgeTmp = edgeMazeVirtual * edgeMazeVirtual;
+  for (int x = 0; x < edgeEdgeTmp; ++x) maze[x] = true;
+  maze[edgeMazeVirtual + 1] = false;
+  for (int y = 1; y < edgeMazeVirtual; y += 2) {
+    for (int x = 1; x < edgeMazeVirtual; x += 2) carveMaze(x, y);
   }
-  maze[1] = maze[839] = 0;
+  maze[1] = maze[edgeEdgeTmp - 2] = false;
 }
 
-bool moveMouse() {
-  if (!digitalRead(top) && yMouse && !rowMaze[yMouse][xMouse]) {
-    tft.fillRect(xMouse * 16 + 10, yMouse * 16 + 10, 12, 12, black);
-    tft.fillRoundRect(xMouse * 16 + 10, --yMouse * 16 + 10, 12, 12, 3, green);
+// Mouse moves top, right, bottom, left
+bool moveMouseMaze() {
+  if (!digitalRead(top) && yMouseMaze && !rowMaze[yMouseMaze][xMouseMaze]) {
+    tft.fillRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, black);
+    tft.fillRoundRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, --yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, borMouseMaze, green);
     return false;
   }  
-  if (!digitalRead(right) && !colMaze[xMouse + 1][yMouse]) {
-    tft.fillRect(xMouse * 16 + 10, yMouse * 16 + 10, 12, 12, black);
-    if (xMouse == 13) return true;
-    tft.fillRoundRect(++xMouse * 16 + 10, yMouse * 16 + 10, 12, 12, 3, green);
+
+  if (!digitalRead(right) && !colMaze[xMouseMaze + 1][yMouseMaze]) {
+    tft.fillRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, black);
+    if (xMouseMaze == edgeMazeReal - 2) return true;
+    tft.fillRoundRect(++xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, borMouseMaze, green);
     return false;
   }
-  if (!digitalRead(bottom) && yMouse != 14 && !rowMaze[yMouse + 1][xMouse]) {
-    tft.fillRect(xMouse * 16 + 10, yMouse * 16 + 10, 12, 12, black);
-    tft.fillRoundRect(xMouse * 16 + 10, ++yMouse * 16 + 10, 12, 12, 3, green);
+
+  if (!digitalRead(bottom) && yMouseMaze != edgeMazeReal - 1 && !rowMaze[yMouseMaze + 1][xMouseMaze]) {
+    tft.fillRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, black);
+    tft.fillRoundRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, ++yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, borMouseMaze, green);
     return false;
   }
-  if (!digitalRead(left) && xMouse && !colMaze[xMouse][yMouse]) {
-    tft.fillRect(xMouse * 16 + 10, yMouse * 16 + 10, 12, 12, black);
-    tft.fillRoundRect(--xMouse * 16 + 10, yMouse * 16 + 10, 12, 12, 3, green);
+
+  if (!digitalRead(left) && xMouseMaze && !colMaze[xMouseMaze][yMouseMaze]) {
+    tft.fillRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, black);
+    tft.fillRoundRect(--xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, borMouseMaze, green);
     return false;
   }
+
   return false;
 }
 
+void drawMaze() {
+  int edge1Tmp = edgeMazeReal - 1;
+
+  for (int i = 1; i < edge1Tmp; ++i) {
+    for (int j = 0; j < edge1Tmp; ++j) {
+      if (rowMaze[i][j]) tft.fillRect(j * sizeBlankMaze, i * sizeBlankMaze, sizeBlankMaze, sizeWallMaze, red);
+    }
+  }
+
+  for (int i = 1; i < edge1Tmp; ++i) {
+    for (int j = 0; j < edge1Tmp; ++j) {
+      if (colMaze[i][j]) tft.fillRect(i * sizeBlankMaze, j * sizeBlankMaze, sizeWallMaze, sizeBlankMaze, red);
+    }
+  }
+}
+
+void drawBorderMaze() {
+  tft.fillRect(0, sizeBlankMaze, sizeWallMaze, (edgeMazeReal - 2) * sizeBlankMaze, red);
+  tft.fillRect((edgeMazeReal - 1) * sizeBlankMaze, 0, sizeWallMaze, (edgeMazeReal - 1) * sizeBlankMaze - sizeMouseMaze, red);
+  tft.fillRect(0, 0, (edgeMazeReal - 1) * sizeBlankMaze, sizeWallMaze, red);
+  tft.fillRect(0, (edgeMazeReal - 1) * sizeBlankMaze, (edgeMazeReal - 1) * sizeBlankMaze, sizeWallMaze, red);
+}
+
+void gameOverMaze() {
+  switch (sizeBlankMaze) {
+    case 16:
+      if (commonScore < bestMazeEasy || !bestMazeEasy) {
+        bestMazeEasy = commonScore;
+        EEPROM.write(addressBestMazeEasy, commonScore);
+        EEPROM.commit();
+      }
+      break;
+    case 12:
+      if (commonScore < bestMazeMedium || !bestMazeMedium) {
+        bestMazeMedium = commonScore;
+        EEPROM.write(addressBestMazeMedium, commonScore);
+        EEPROM.commit();
+      }
+      break;
+    default:
+      if (commonScore < bestMazeHard || !bestMazeHard) {
+        bestMazeHard = commonScore;
+        EEPROM.write(addressBestMazeHard, commonScore);
+        EEPROM.commit();
+      }
+  }
+}
+
+void drawSubScreenMaze(int score) {
+  switch (sizeBlankMaze) {
+    case 16:
+      drawSubScreen(bestMazeEasy, score);
+      break;
+    case 12:
+      drawSubScreen(bestMazeMedium, score);
+      break;
+    default:
+      drawSubScreen(bestMazeHard, score);
+  }
+}
+
 int newGameMaze() {
-  drawSubScreen(bestMaze, 0);
+  memset(maze, false, sizeof(maze));
+  memset(rowMaze, false, sizeof(rowMaze));
+  memset(colMaze, false, sizeof(colMaze));
 
-  tft.fillRect(6, 22, 4, 208, red);
-  tft.fillRect(230, 6, 4, 212, red);
-  tft.fillRect(6, 6, 224, 4, red);
-  tft.fillRect(6, 230, 228, 4, red);
-
+  // Select size and level of maze
+  switch (selectThree("--EASY--", "-MEDIUM-", "---HARD---")) {
+    case 0: 
+      sizeBlankMaze = 16;
+      sizeWallMaze = 4;
+      borMouseMaze = 3;
+      edgeMazeReal = 15;
+      edgeMazeVirtual = 29;
+      sizeMouseMaze = 12;
+      break;
+    case 1:
+      sizeBlankMaze = 12;
+      sizeWallMaze = 3;
+      borMouseMaze = 2;
+      edgeMazeReal = 20;
+      edgeMazeVirtual = 39;
+      sizeMouseMaze = 9;
+      break; 
+    default:
+      sizeBlankMaze = 8;
+      sizeWallMaze = 2;
+      borMouseMaze = 1;
+      edgeMazeReal = 30;
+      edgeMazeVirtual = 59;
+      sizeMouseMaze = 6;
+  }
+  
   generateMaze();
   saveMaze();
 
-  for (int i = 1; i < 14; ++i) {
-    int y = i * 16;
-    for (int j = 0; j < 14; ++j) {
-      if (rowMaze[i][j]) tft.fillRect(j * 16 + 6, y + 6, 16, 4, red);
-    }
-  }
+  drawSubScreenMaze(0);
+  drawBorderMaze();
+  drawMaze();
 
-  for (int i = 1; i < 14; ++i) {
-    int x = i * 16;
-    for (int j = 0; j < 14; ++j) {
-      if (colMaze[i][j]) tft.fillRect(x + 6, j * 16 + 6, 4, 16, red);
-    }
-  }
+  xMouseMaze = 0;
+  yMouseMaze = 0;
+  tft.fillRoundRect(sizeWallMaze, sizeWallMaze, sizeMouseMaze, sizeMouseMaze, borMouseMaze, green);
 
-  xMouse = 0;
-  yMouse = 0;
-  tft.fillRoundRect(10, 10, 12, 12, 3, green);
-
+  // Maze actives
   while (1) {
     for (int i = 0; i < 10; ++i) {
       if (!digitalRead(pau)) return 0;
-      if (moveMouse()) {
-        if (commonScore < bestMaze || !bestMaze) {
-          bestMaze = commonScore;
-          EEPROM.write(1, commonScore);
-          EEPROM.commit();
-        }
+      if (moveMouseMaze()) {
+        gameOverMaze();
         return 1;
       }
       delay(100);
     }
     increaseScore();
+    if (commonScore % 5 == 0) tone(buzzer, 349, 120);
   }
 }
 
 int continueMaze() {
-  drawSubScreen(bestMaze, 0);
+  drawSubScreenMaze(commonScore);
+  drawBorderMaze();
+  drawMaze();
 
-  tft.fillRect(6, 22, 4, 208, red);
-  tft.fillRect(230, 6, 4, 212, red);
-  tft.fillRect(6, 6, 224, 4, red);
-  tft.fillRect(6, 230, 228, 4, red);
-
-  for (int i = 1; i < 14; ++i) {
-    int y = i * 16;
-    for (int j = 0; j < 14; ++j) {
-      if (rowMaze[i][j]) tft.fillRect(j * 16 + 6, y + 6, 16, 4, red);
-    }
-  }
-
-  for (int i = 1; i < 14; ++i) {
-    int x = i * 16;
-    for (int j = 0; j < 14; ++j) {
-      if (colMaze[i][j]) tft.fillRect(x + 6, j * 16 + 6, 4, 16, red);
-    }
-  }
-
-  tft.fillRoundRect(xMouse * 16 + 10, yMouse * 16 + 10, 12, 12, 3, green);
+  tft.fillRoundRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, borMouseMaze, green);
 
   while (1) {
     for (int i = 0; i < 10; ++i) {
       if (!digitalRead(pau)) return 0;
-      if (moveMouse()) {
-        if (commonScore < bestMaze || !bestMaze) {
-          bestMaze = commonScore;
-          EEPROM.write(1, commonScore);
-          EEPROM.commit();
-        }
+      if (moveMouseMaze()) {
+        gameOverMaze();
         return 1;
       }
       delay(100);
     }
     increaseScore();
+    if (commonScore % 5 == 0) tone(buzzer, 349, 120);
   }
 }
