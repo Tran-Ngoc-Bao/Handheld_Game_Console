@@ -10,22 +10,22 @@
 <tr>
   <td>Trần Ngọc Bảo (Leader)</td>
   <td>20215529</td>
-  <td>Design, Program, Test, Deploy</td>
+  <td>Design, Program, Deploy</td>
 </tr>
 <tr>
   <td>Đinh Thủy Dương</td>
   <td>20215553</td>
-  <td>Program, Write report</td>
+  <td>Program, Deploy</td>
 </tr>
 <tr>
   <td>Trần Ngọc Minh</td>
   <td>20215617</td>
-  <td>Program, Write report</td>
+  <td>Program, Test</td>
 </tr>
 <tr>
   <td>Phạm Thế Anh</td>
   <td>20215526</td>
-  <td>Write report, Make slide</td>
+  <td>Test, Write report</td>
 </tr>
 </table>
 
@@ -43,6 +43,7 @@
     <a href="https://shopee.vn/product/176393725/5601776577?gad_source=1&gclid=CjwKCAjwtqmwBhBVEiwAL-WAYTP7uJDDzuygzGsoMXc6MNg92Qbw7MDDTCufehCs43qxlzKeR5ZtaxoC-8AQAvD_BwE">Breadboard</a>, 
     <a href="https://shopee.vn/product/252855327/3652008955?gad_source=1&gclid=CjwKCAjwtqmwBhBVEiwAL-WAYVDGQ3EsTE8CK78vvNfv7ikCyH5lptp6cVnozWxJvQ3cMDyLuvlmFBoC3bIQAvD_BwE">Jumper wire</a>, 
     <a href="https://shopee.vn/product/104103144/11544461454?gad_source=1&gclid=CjwKCAjwtqmwBhBVEiwAL-WAYQkf0y6WBPpMEaz3ToA4wabKz-23GfNzlsV0mlo2wv2Wbz7Cw9tciBoCb7IQAvD_BwE">Button</a>, 
+    <a href="https://shopee.vn/product/104103144/9761408187?gad_source=1&gclid=Cj0KCQjw3ZayBhDRARIsAPWzx8qUMlKNmsYtToxUz0DNTq4EOeXWtEARAyhM37sWI_F9tf0Ya-yYPZIaAk3EEALw_wcB">Buzzer</a>, 
     <a href="https://shopee.vn/product/397654714/4297391862?gad_source=1&gclid=CjwKCAjwtqmwBhBVEiwAL-WAYVNS61l5V1Sd8-BVD2_I24HnmyO4Y_YVtb7dmaiqhWshqkVdRkjTvBoC0-QQAvD_BwE">Resistor</a> (Purchase link)</li>
   <li>Software programming: Arduino IDE</li>
   <li>Programming language: C/C++</li>
@@ -52,17 +53,16 @@
 
 ## Implementation instructions
 <ul>
-  <li>Install the system according to the <a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Document/Design/Circuit.png">design</a>, refer to the images below in the Demo section.</li>
+  <li>Install the system according to the <a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Document/Design/Circuit.png">design</a> (<a href="https://wokwi.com/projects/398098611206768641">WOKWI</a>), refer to the images below in the Demo section.</li>
   <li>Create a folder with Arduino IDE, code in <a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/tree/master/SourceCode">SourceCode.</a></li>
   <li>Connect device with your computer, proceed to load the code into device.</a></li>
   <li>Disconnect device with your computer, connect device with the power source, and run like a handheld game console.</a></li>
 </ul>
 
 ## Demo
-### Select game
+### Device
 <div style="display:flex">
-  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/FlappyBird.jpeg">
-  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/TankWar.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Device.jpeg">
 </div>
 
 ### Pause and Game over
@@ -71,15 +71,24 @@
   <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/GameOver.jpeg">
 </div>
 
+### Select map and Select level
+<div style="display:flex">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SelectMap.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SelectLevel.jpeg">
+</div>
+
 ### Play game
 <div style="display:flex">
-  <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Maze.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Maze.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SnakeWind.jpeg">
+  <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/FlappyBird.jpeg">
   <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Ponk.jpeg">
-  <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SnakeWind.jpeg">
+  <img style="width:32%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/TankWar.jpeg">
 </div>
 
 ## Report
 <ul>
-  <li>Report</li>
+  <li><a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Document/Report/Bao_Cao.pdf">Report</a></li>
   <li>Slide</li>
+  <li>Video Demo</li>
 </ul>
