@@ -156,7 +156,7 @@ int newGameMaze() {
   memset(colMaze, false, sizeof(colMaze));
 
   // Select size and level of maze
-  switch (selectThree("--EASY--", "-MEDIUM-", "---HARD---")) {
+  switch (selectThree(false, "--EASY--", "-MEDIUM-", "---HARD---")) {
     case 0: 
       sizeBlankMaze = 16;
       sizeWallMaze = 4;

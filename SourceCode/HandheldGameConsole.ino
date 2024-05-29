@@ -9,6 +9,7 @@ NOTE: VARIABLE NAME, FUNCTION NAME
 */
 
 #include "Common.h"
+#include "Player.h"
 #include "FlappyBird.h"
 #include "Maze.h"
 #include "Ponk.h"
@@ -27,32 +28,43 @@ void setup() {
 
   Serial.begin(9600);
 
+  EEPROM.begin(201);
+
   tft.begin();
   tft.setRotation(2);
 
-  EEPROM.begin(5);
+  countPlayer = EEPROM.read(200);
 
-  bestFlappyBird = EEPROM.read(addressBestFlappyBird);
+  if (selectTwo(false, "WELCOME!", "OLD PLAYER") == 1) {
+    enterPlayer();
+    currentPlayer = (countPlayer - 1) * 25;
+  } else if (countPlayer) currentPlayer = selectEight();
+  else {
+    enterPlayer();
+    currentPlayer = (countPlayer - 1) * 25;
+  }
 
-  bestMazeEasy = EEPROM.read(addressBestMazeEasy);
-  bestMazeMedium = EEPROM.read(addressBestMazeMedium);
-  bestMazeHard = EEPROM.read(addressBestMazeHard);
+  bestFlappyBird = EEPROM.read(currentPlayer + addressBestFlappyBird);
 
-  bestPonkEasy = EEPROM.read(addressBestPonkEasy);
-  bestPonkMedium = EEPROM.read(addressBestPonkMedium);
-  bestPonkHard = EEPROM.read(addressBestPonkHard);
+  bestMazeEasy = EEPROM.read(currentPlayer + addressBestMazeEasy);
+  bestMazeMedium = EEPROM.read(currentPlayer + addressBestMazeMedium);
+  bestMazeHard = EEPROM.read(currentPlayer + addressBestMazeHard);
 
-  bestSnakeWindFreeEasy = EEPROM.read(addressBestSnakeWindFreeEasy);
-  bestSnakeWindFreeMedium = EEPROM.read(addressBestSnakeWindFreeMedium);
-  bestSnakeWindFreeHard = EEPROM.read(addressBestSnakeWindFreeHard);
-  bestSnakeWindHomeEasy = EEPROM.read(addressBestSnakeWindHomeEasy);
-  bestSnakeWindHomeMedium = EEPROM.read(addressBestSnakeWindHomeMedium);
-  bestSnakeWindHomeHard = EEPROM.read(addressBestSnakeWindHomeHard);
-  bestSnakeWindParkEasy = EEPROM.read(addressBestSnakeWindParkEasy);
-  bestSnakeWindParkMedium = EEPROM.read(addressBestSnakeWindParkMedium);
-  bestSnakeWindParkHard = EEPROM.read(addressBestSnakeWindParkHard);
+  bestPonkEasy = EEPROM.read(currentPlayer + addressBestPonkEasy);
+  bestPonkMedium = EEPROM.read(currentPlayer + addressBestPonkMedium);
+  bestPonkHard = EEPROM.read(currentPlayer + addressBestPonkHard);
 
-  bestTankWar = EEPROM.read(addressBestTankWar);
+  bestSnakeWindFreeEasy = EEPROM.read(currentPlayer + addressBestSnakeWindFreeEasy);
+  bestSnakeWindFreeMedium = EEPROM.read(currentPlayer + addressBestSnakeWindFreeMedium);
+  bestSnakeWindFreeHard = EEPROM.read(currentPlayer + addressBestSnakeWindFreeHard);
+  bestSnakeWindHomeEasy = EEPROM.read(currentPlayer + addressBestSnakeWindHomeEasy);
+  bestSnakeWindHomeMedium = EEPROM.read(currentPlayer + addressBestSnakeWindHomeMedium);
+  bestSnakeWindHomeHard = EEPROM.read(currentPlayer + addressBestSnakeWindHomeHard);
+  bestSnakeWindParkEasy = EEPROM.read(currentPlayer + addressBestSnakeWindParkEasy);
+  bestSnakeWindParkMedium = EEPROM.read(currentPlayer + addressBestSnakeWindParkMedium);
+  bestSnakeWindParkHard = EEPROM.read(currentPlayer + addressBestSnakeWindParkHard);
+
+  bestTankWar = EEPROM.read(currentPlayer + addressBestTankWar);
 
   selectGame();
 }
@@ -67,7 +79,7 @@ void loop() {
     flag = true;
     if (selectTwo(true, "NEW GAME", "OTHER GAME") == 2) selectGame();
   } else {
-    int resultPauseTmp = selectThree("CONTINUE", "NEW GAME", "OTHER GAME");
+    int resultPauseTmp = selectThree(true, "CONTINUE", "NEW GAME", "OTHER GAME");
     if (resultPauseTmp == 0) flag = false;
     else {
       flag = true;

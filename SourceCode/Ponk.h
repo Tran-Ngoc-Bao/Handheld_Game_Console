@@ -347,7 +347,7 @@ void gameOverPonk() {
 
 int newGamePonk() {
   // Select all atributes of ponk
-  switch (selectThree("--EASY--", "-MEDIUM-", "---HARD---")) {
+  switch (selectThree(false, "--EASY--", "-MEDIUM-", "---HARD---")) {
     case 0:
       sizeBrickPonk = 16;
       quantityBrickEdgePonk = 15;

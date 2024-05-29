@@ -248,7 +248,7 @@ void drawSubScreenSnakeWind(int score) {
 
 int newGameSnakeWind() {
   memset(wallSnakeWind, false, sizeof(wallSnakeWind));
-  switch (selectThree("--FREE--", "--HOME--", "---PARK---")) {
+  switch (selectThree(false, "--FREE--", "--HOME--", "---PARK---")) {
     case 0:
       mapSnakeWind = 0; 
       break;
@@ -325,7 +325,7 @@ int newGameSnakeWind() {
       mapSnakeWind = 2;
   }
 
-  switch (selectThree("--EASY--", "-MEDIUM-", "---HARD---")) {
+  switch (selectThree(false, "--EASY--", "-MEDIUM-", "---HARD---")) {
     case 0: 
       speedSnakeWind = 100;
       break;
