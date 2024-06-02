@@ -73,7 +73,7 @@ bool checkGameOverFlappyBird() {
       // Update best flappy bird
       if (commonScore > bestFlappyBird) {
         bestFlappyBird = commonScore;
-        EEPROM.write(addressBestFlappyBird, commonScore);
+        EEPROM.write(currentPlayer + addressBestFlappyBird, commonScore);
         EEPROM.commit(); 
       }
       return true;
@@ -84,7 +84,7 @@ bool checkGameOverFlappyBird() {
     if (heightArrayFlappyBird[6][0] >= yFlappyBird || yFlappyBird >= heightArrayFlappyBird[6][0] + 7) {
       if (commonScore > bestFlappyBird) {
         bestFlappyBird = commonScore;
-        EEPROM.write(addressBestFlappyBird, commonScore);
+        EEPROM.write(currentPlayer + addressBestFlappyBird, commonScore);
         EEPROM.commit();
       }
       return true;

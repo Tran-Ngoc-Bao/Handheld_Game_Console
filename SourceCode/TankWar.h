@@ -523,7 +523,7 @@ int newGameTankWar() {
     if (hitAndRunAmerica1TankWar()) {
       if (commonScore > bestTankWar) { // Update best tank war
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -533,7 +533,7 @@ int newGameTankWar() {
     if (hitAndRunAmerica2TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -543,7 +543,7 @@ int newGameTankWar() {
     if (hitAndRunAmerica3TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -553,7 +553,7 @@ int newGameTankWar() {
     if (hitAndRunAmerica4TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -576,7 +576,7 @@ int continueTankWar() {
     if (hitAndRunAmerica1TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -586,7 +586,7 @@ int continueTankWar() {
     if (hitAndRunAmerica2TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -596,7 +596,7 @@ int continueTankWar() {
     if (hitAndRunAmerica3TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;
@@ -606,7 +606,7 @@ int continueTankWar() {
     if (hitAndRunAmerica4TankWar()) {
       if (commonScore > bestTankWar) {
         bestTankWar = commonScore;
-        EEPROM.write(addressBestTankWar, commonScore);
+        EEPROM.write(currentPlayer + addressBestTankWar, commonScore);
         EEPROM.commit();
       }
       return 1;

@@ -117,21 +117,21 @@ void gameOverMaze() {
     case 16:
       if (commonScore < bestMazeEasy || !bestMazeEasy) {
         bestMazeEasy = commonScore;
-        EEPROM.write(addressBestMazeEasy, commonScore);
+        EEPROM.write(currentPlayer + addressBestMazeEasy, commonScore);
         EEPROM.commit();
       }
       break;
     case 12:
       if (commonScore < bestMazeMedium || !bestMazeMedium) {
         bestMazeMedium = commonScore;
-        EEPROM.write(addressBestMazeMedium, commonScore);
+        EEPROM.write(currentPlayer + addressBestMazeMedium, commonScore);
         EEPROM.commit();
       }
       break;
     default:
       if (commonScore < bestMazeHard || !bestMazeHard) {
         bestMazeHard = commonScore;
-        EEPROM.write(addressBestMazeHard, commonScore);
+        EEPROM.write(currentPlayer + addressBestMazeHard, commonScore);
         EEPROM.commit();
       }
   }

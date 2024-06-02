@@ -104,45 +104,45 @@ void subCheckGameOverSnakeWind() {
     case 0: 
       if (speedSnakeWind == 100 && commonScore > bestSnakeWindFreeEasy) {
         bestSnakeWindFreeEasy = commonScore;          
-        EEPROM.write(addressBestSnakeWindFreeEasy, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindFreeEasy, commonScore);
         EEPROM.commit();
       } else if (speedSnakeWind == 80 && commonScore > bestSnakeWindFreeMedium) {
         bestSnakeWindFreeMedium = commonScore;          
-        EEPROM.write(addressBestSnakeWindFreeMedium, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindFreeMedium, commonScore);
         EEPROM.commit();
       } else if (commonScore > bestSnakeWindFreeHard) {
         bestSnakeWindFreeHard = commonScore;          
-        EEPROM.write(addressBestSnakeWindFreeHard, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindFreeHard, commonScore);
         EEPROM.commit();
       }
       break;
     case 1:
       if (speedSnakeWind == 100 && commonScore > bestSnakeWindHomeEasy) {
         bestSnakeWindHomeEasy = commonScore;          
-        EEPROM.write(addressBestSnakeWindHomeEasy, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindHomeEasy, commonScore);
         EEPROM.commit();
       } else if (speedSnakeWind == 80 && commonScore > bestSnakeWindHomeMedium) {
         bestSnakeWindHomeMedium = commonScore;          
-        EEPROM.write(addressBestSnakeWindHomeMedium, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindHomeMedium, commonScore);
         EEPROM.commit();
       } else if (commonScore > bestSnakeWindHomeHard) {
         bestSnakeWindHomeHard = commonScore;          
-        EEPROM.write(addressBestSnakeWindHomeHard, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindHomeHard, commonScore);
         EEPROM.commit();
       }
       break;
     default:
       if (speedSnakeWind == 100 && commonScore > bestSnakeWindParkEasy) {
         bestSnakeWindParkEasy = commonScore;          
-        EEPROM.write(addressBestSnakeWindParkEasy, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindParkEasy, commonScore);
         EEPROM.commit();
       } else if (speedSnakeWind == 80 && commonScore > bestSnakeWindParkMedium) {
         bestSnakeWindParkMedium = commonScore;          
-        EEPROM.write(addressBestSnakeWindParkMedium, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindParkMedium, commonScore);
         EEPROM.commit();
       } else if (commonScore > bestSnakeWindParkHard) {
         bestSnakeWindParkHard = commonScore;          
-        EEPROM.write(addressBestSnakeWindParkHard, commonScore);
+        EEPROM.write(currentPlayer + addressBestSnakeWindParkHard, commonScore);
         EEPROM.commit();
       }
   }
@@ -379,6 +379,17 @@ int continueSnakeWind() {
   for (int i = 1; i < snakeWind.size(); ++i) tft.fillRoundRect(snakeWind[i].x * 8, snakeWind[i].y * 8, 8, 8, 1, green);
   tft.fillRoundRect(foodSnakeWind.x * 8, foodSnakeWind.y * 8, 8, 8, 3, white);
   if (bigFoodSnakeWind.x != -1) tft.fillRoundRect(bigFoodSnakeWind.x * 8, bigFoodSnakeWind.y * 8, 16, 16, 5, red);
+
+  for (int i = 0; i < 20; ++i) {
+    if (!digitalRead(pau)) return 0;
+    moveSnakeWind();
+    if (checkGameOverSnakeWind()) return 1;
+    delay(speedSnakeWind);
+  }
+  if (bigFoodSnakeWind.x != -1) {
+    tft.fillRect(bigFoodSnakeWind.x * 8, bigFoodSnakeWind.y * 8, 16, 16, black);
+    bigFoodSnakeWind.x = -1;
+  }
   
   while (1) {
     for (int i = 0; i < 100; ++i) {

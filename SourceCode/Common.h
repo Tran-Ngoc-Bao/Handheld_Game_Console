@@ -291,7 +291,7 @@ int selectEight() {
           targetTmp = 7;
           drawOldPlayer(false, 176, 88, readNamePlayer(true, 125));
           drawOldPlayer(true, 176, 128, readNamePlayer(true, 150));
-        } else if (!digitalRead(enter) && countPlayer > 6) return 125;
+        } else if (!digitalRead(enter) && countPlayer > 5) return 125;
         break;
       case 7:
         if (!digitalRead(top)) {

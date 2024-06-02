@@ -325,21 +325,21 @@ void gameOverPonk() {
     case 16:
       if (commonScore > bestPonkEasy) {
         bestPonkEasy = commonScore;  
-        EEPROM.write(addressBestPonkEasy, commonScore);
+        EEPROM.write(currentPlayer + addressBestPonkEasy, commonScore);
         EEPROM.commit();
       }
       break;
     case 12:
       if (commonScore > bestPonkMedium) {
         bestPonkMedium = commonScore;  
-        EEPROM.write(addressBestPonkMedium, commonScore);
+        EEPROM.write(currentPlayer + addressBestPonkMedium, commonScore);
         EEPROM.commit();
       }
       break;
     default:
       if (commonScore > bestPonkHard) {
         bestPonkHard = commonScore;  
-        EEPROM.write(addressBestPonkHard, commonScore);
+        EEPROM.write(currentPlayer + addressBestPonkHard, commonScore);
         EEPROM.commit();
       }
   }

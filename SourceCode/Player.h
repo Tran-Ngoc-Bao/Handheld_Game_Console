@@ -132,7 +132,7 @@ void enterPlayer() {
     if (!digitalRead(enter)) {
       if (target == 100) {
         if (cntTmp) {
-          tft.fillRoundRect(64 + cntTmp * 24, 40, 24, 24, 5, indigo);
+          if (cntTmp != 8) tft.fillRoundRect(64 + cntTmp * 24, 40, 24, 24, 5, indigo);
           resultTmp[--cntTmp] = 0;
           drawCharacter(false, 64 + cntTmp * 24, -60, 30);
         }
