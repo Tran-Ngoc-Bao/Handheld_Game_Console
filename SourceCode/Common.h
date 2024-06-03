@@ -2,6 +2,7 @@
 #include "vector"
 #include "EEPROM.h"
 
+// Pins of screen
 #define _cs 15
 #define _dc 2 
 #define _mosi 23
@@ -9,6 +10,7 @@
 #define _rst 4   
 #define _miso     
 
+// Pins of buttons
 #define top 27
 #define bottom 14
 #define left 13
@@ -19,6 +21,7 @@
 
 Adafruit_ILI9341 tft = Adafruit_ILI9341(_cs, _dc, _mosi, _sclk, _rst);
 
+// Colors
 #define black tft.color565(0, 0, 0)
 #define indigo tft.color565(255, 0, 0)
 #define green tft.color565(0, 255, 0)
@@ -28,6 +31,7 @@ Adafruit_ILI9341 tft = Adafruit_ILI9341(_cs, _dc, _mosi, _sclk, _rst);
 #define blue tft.color565(255, 255, 0)
 #define white tft.color565(255, 255, 255)
 
+// Abstract addresses data about best score
 #define addressBestFlappyBird 8
 
 #define addressBestMazeEasy 9
@@ -61,8 +65,9 @@ int bestTankWar;
 
 int countPlayer, currentPlayer;
 
-bool flag = true;
+bool flag = true; // True is new game. False is continue
 
+// Buzzer sound function
 void playTone(int t, int duration) {
   tone(buzzer, t, duration);
   delay(duration * 1.3);
@@ -89,6 +94,7 @@ void music() {
   delay(300);
 }
 
+// drawOne, drawTwo, drawThree support for selectTwo, selectThree
 void drawOne(bool b, String s) {
   if (b) tft.fillRect(80, 24, 156, 40, red);
   else tft.fillRect(80, 24, 156, 40, indigo);
@@ -136,6 +142,7 @@ int selectThree(bool b, String one, String two, String three) {
   drawTwo(false, two);
   drawThree(false, three);
 
+  // Up and down action for drawOne, drawTwo, drawThree
   while (1) {
     if (oneTmp) {
       if (!digitalRead(enter)) return 0;
@@ -176,6 +183,7 @@ int selectThree(bool b, String one, String two, String three) {
   }
 }
 
+// Read player name from EEPROM address
 String readNamePlayer(bool b, int n) {
   if (n / 25 >= countPlayer) return "";
   String namePlayerTmp = "";
@@ -196,6 +204,7 @@ void drawOldPlayer(bool b, int x, int y, String s) {
   tft.println(s);
 }
 
+// Show list of old player (max: 8)
 int selectEight() {
   tft.fillScreen(black);
   tft.setTextSize(2);
@@ -212,6 +221,13 @@ int selectEight() {
   drawOldPlayer(false, 176, 128, readNamePlayer(true, 150));
   drawOldPlayer(false, 176, 168, readNamePlayer(true, 175));
   
+  // Select player action (move top, right, bottom, left)
+  /* Illustration:
+    1     5
+    2     6
+    3     7
+    4     8
+  */
   int targetTmp = 1;
   while (1) {
     switch (targetTmp) {
@@ -342,6 +358,7 @@ int selectTwo(bool gameOver, String two, String three) {
   drawTwo(true, two);
   drawThree(false, three);
 
+  // Up and down action for drawTwo, drawThree
   while (1) {
     if (twoTmp) {
       if (!digitalRead(enter)) return 1;
@@ -373,6 +390,7 @@ void drawScore() {
   tft.println(commonScore);
 }
 
+// Draw player name, current game's best score, current score, pause button
 void drawSubScreen(int best, int score) {
   commonScore = score;
 

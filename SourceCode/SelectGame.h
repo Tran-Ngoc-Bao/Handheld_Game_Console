@@ -1,4 +1,4 @@
-bool leftTriangle;
+bool leftTriangle; // Direct triangle (true is left, false is right)
 
 void iconFlappyBird() {
   tft.fillRect(96, 56, 144, 104, black);
@@ -75,6 +75,7 @@ void drawGameName(String s) {
   tft.println(s);
 }
 
+// Draw current selected game
 void subSelectGame() {
   switch (currentGame) {
     case 0:
@@ -99,6 +100,7 @@ void subSelectGame() {
   }
 }
 
+// Select game by move left or right
 void forwardGame() {
   if (!digitalRead(left)) {
     if (!leftTriangle) {
@@ -140,6 +142,7 @@ void selectGame() {
   }
 }
 
+// Check selected new game
 int switchNewGame() {
   music();
   switch (currentGame) {
@@ -156,6 +159,7 @@ int switchNewGame() {
   }
 }
 
+// Check selected continue
 int switchContinue() {
   switch (currentGame) {
     case 0:

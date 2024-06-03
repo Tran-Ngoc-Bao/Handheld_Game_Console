@@ -1,6 +1,8 @@
-#include "EEPROM.h"
-int target = 0;
+// Pointer position
+// Target 100 is DEL button. Target 1000 is DONE button. Other is alphabet character
+int target = 0; 
 
+// Draw alphabet character or _ character
 void drawCharacter(bool b, int x, int y, int c) {
   if (b) tft.fillRoundRect(x, 100 + y, 24, 24, 5, red);
   else tft.fillRoundRect(x, 100 + y, 24, 24, 5, indigo);
@@ -8,6 +10,7 @@ void drawCharacter(bool b, int x, int y, int c) {
   tft.println((char) (65 + c));
 }
 
+// DEL button
 void drawDelete(bool b) {
   if (b) tft.fillRoundRect(260, 140, 56, 24, 5, red);
   else tft.fillRoundRect(260, 140, 56, 24, 5, green);
@@ -15,6 +18,7 @@ void drawDelete(bool b) {
   tft.println("DEL");
 }
 
+// DONE button
 void drawDone(bool b) {
   if (b) tft.fillRoundRect(260, 180, 56, 24, 5, red);
   else tft.fillRoundRect(260, 180, 56, 24, 5, green);
@@ -22,6 +26,8 @@ void drawDone(bool b) {
   tft.println("DONE");
 }
 
+// Move top, right, bottom, left pointer
+// Process at special position
 void moveTarget() {
   if (!digitalRead(top) && target > 9) {
     if (target == 100) {
@@ -120,6 +126,7 @@ void enterPlayer() {
 
   drawCharacter(true, 4, 0, 0);
 
+  // Draw board
   for (int i = 1; i < 10; ++i) drawCharacter(false, i * 32 + 4, 0, i);
   for (int i = 0; i < 8; ++i) drawCharacter(false, i * 32 + 4, 40, i + 10);
   for (int i = 0; i < 8; ++i) drawCharacter(false, i * 32 + 4, 80, i + 18);
@@ -129,6 +136,7 @@ void enterPlayer() {
 
   while (1) {
     moveTarget();
+    // Process event when press enter button
     if (!digitalRead(enter)) {
       if (target == 100) {
         if (cntTmp) {

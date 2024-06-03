@@ -7,7 +7,7 @@ bool brickPonk[30][30];
 // stateBallPonk corresponds to bounce%Ponk
 // bounce%Ponk functions process special case first (corner, barier, corner-barier, corner-brick)
 
-// Bounce south
+// Bounce south (State 0)
 bool bounce0Ponk() {
   if (yBallPonk == quantityBrickEdgePonk - 2) {
     if (xBallPonk == barierPonk) {
@@ -39,7 +39,7 @@ bool bounce0Ponk() {
   return false;
 }
 
-// Bounce west north
+// Bounce west north (State 1)
 bool bounce1Ponk() {
   if (!xBallPonk && !yBallPonk) {
     tft.fillRect(xBallPonk * sizeBrickPonk, 0, sizeBrickPonk, sizeBrickPonk, black);
@@ -96,7 +96,7 @@ bool bounce1Ponk() {
 }
 
 
-// Bounce east north
+// Bounce east north (State 2)
 bool bounce2Ponk() {
   if (xBallPonk == quantityBrickEdgePonk - 1 && !yBallPonk) {
     tft.fillRect(240 - sizeBrickPonk, 0, sizeBrickPonk, sizeBrickPonk, black);
@@ -152,7 +152,7 @@ bool bounce2Ponk() {
   return false;
 }
 
-// Bounce west south
+// Bounce west south (State 3)
 bool bounce3Ponk() {
   if (yBallPonk == quantityBrickEdgePonk - 2) {
     if (!xBallPonk) {
@@ -210,7 +210,7 @@ bool bounce3Ponk() {
   return false;
 }
 
-// Bounce east south
+// Bounce east south (State 4)
 bool bounce4Ponk() {
   if (yBallPonk == quantityBrickEdgePonk - 2) {
     if (xBallPonk == quantityBrickEdgePonk - 1) {
@@ -268,7 +268,7 @@ bool bounce4Ponk() {
   return false;
 }
 
-// Bounce north
+// Bounce north (State 5)
 bool bounce5Ponk() {
   tft.fillRect(xBallPonk * sizeBrickPonk, yBallPonk * sizeBrickPonk, sizeBrickPonk, sizeBrickPonk, black);
   if (!yBallPonk) {
@@ -436,6 +436,7 @@ int continuePonk() {
 
   delay(1000);
 
+  // Ponk actives
   while (1) {
     if (!digitalRead(pau)) return 0;
     if (moveBall() || !countBrickPonk) {

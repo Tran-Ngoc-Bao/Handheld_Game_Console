@@ -2,6 +2,7 @@ int yFlappyBird;
 
 int heightArrayFlappyBird[31][2];
 
+// 1 sewer can divide 3 part sewer (left, mid, right)
 void drawLeftSewerFlappyBird(int x, int h) {
   tft.fillRect(x * 8 + 4, 0, 4, (h - 2) * 8, green);
   tft.fillRect(x * 8, (h - 2) * 8, 8, 16, green);
@@ -80,8 +81,10 @@ bool checkGameOverFlappyBird() {
     } 
   }
 
+  // If touch sewer
   if (heightArrayFlappyBird[6][0]) {
     if (heightArrayFlappyBird[6][0] >= yFlappyBird || yFlappyBird >= heightArrayFlappyBird[6][0] + 7) {
+      // Update best flappy bird
       if (commonScore > bestFlappyBird) {
         bestFlappyBird = commonScore;
         EEPROM.write(currentPlayer + addressBestFlappyBird, commonScore);
@@ -123,7 +126,7 @@ void birdFallFlappyBird() {
   drawBirdFlapyBird(); 
 }
 
-
+// Status 0 is left sewer. Status 1 is mid sewer. Status 2 is right sewer
 int generateSewerFlappyBird(int rd, int status) {
   heightArrayFlappyBird[30][0] = rd;
   heightArrayFlappyBird[30][1] = status;
@@ -162,6 +165,7 @@ int generateBlackFlappyBird() {
   if (checkGameOverFlappyBird()) return 1;
   drawRunSewerFlappyBird();
 
+  // If bird fly over sewer
   if (heightArrayFlappyBird[3][0] && !heightArrayFlappyBird[4][0]) {
     tone(buzzer, 349, 120);
     increaseScore(); 
@@ -278,6 +282,7 @@ int continueFlappyBird() {
     }
   }
 
+  // Flappy bird actives
   while (1) {
     int randomTmp = random(7, 15);
 

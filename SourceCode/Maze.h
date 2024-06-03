@@ -18,6 +18,7 @@ void saveMaze() {
   }
 }
 
+// Build maze
 void carveMaze(int x, int y) {
   int x1Tmp, y1Tmp, x2Tmp, y2Tmp, dxTmp, dyTmp;
   int dirTmp = random(4), countTmp = 0;
@@ -156,6 +157,7 @@ int newGameMaze() {
   memset(colMaze, false, sizeof(colMaze));
 
   // Select size and level of maze
+  // Easy is 15x15. Medium is 20x20. Hard is 30x30
   switch (selectThree(false, "--EASY--", "-MEDIUM-", "---HARD---")) {
     case 0: 
       sizeBlankMaze = 16;
@@ -215,6 +217,7 @@ int continueMaze() {
 
   tft.fillRoundRect(xMouseMaze * sizeBlankMaze + sizeWallMaze, yMouseMaze * sizeBlankMaze + sizeWallMaze, sizeMouseMaze, sizeMouseMaze, borMouseMaze, green);
 
+  // Maze actives
   while (1) {
     for (int i = 0; i < 10; ++i) {
       if (!digitalRead(pau)) return 0;

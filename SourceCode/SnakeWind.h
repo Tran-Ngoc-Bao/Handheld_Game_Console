@@ -391,6 +391,7 @@ int continueSnakeWind() {
     bigFoodSnakeWind.x = -1;
   }
   
+  // Snake wind actives
   while (1) {
     for (int i = 0; i < 100; ++i) {
       if (!digitalRead(pau)) return 0;

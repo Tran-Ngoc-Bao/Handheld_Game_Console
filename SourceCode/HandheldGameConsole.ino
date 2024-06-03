@@ -18,6 +18,7 @@ NOTE: VARIABLE NAME, FUNCTION NAME
 #include "SelectGame.h"
 
 void setup() {
+  // Set up pins
   pinMode(top, INPUT);
   pinMode(bottom, INPUT);
   pinMode(left, INPUT);
@@ -26,15 +27,18 @@ void setup() {
   pinMode(pau, INPUT);
   pinMode(buzzer, OUTPUT);
 
-  Serial.begin(9600);
+  Serial.begin(9600); // Help test code
 
-  EEPROM.begin(201);
-
+  // Start screen
   tft.begin();
   tft.setRotation(2);
 
+  // Load data from EEPROM
+  EEPROM.begin(201);
+
   countPlayer = EEPROM.read(200);
 
+  // Select new player or old player
   if (selectTwo(false, "WELCOME!", "OLD PLAYER") == 1) {
     enterPlayer();
     currentPlayer = (countPlayer - 1) * 25;
@@ -44,6 +48,7 @@ void setup() {
     currentPlayer = (countPlayer - 1) * 25;
   }
 
+  // Load player's data about best score
   bestFlappyBird = EEPROM.read(currentPlayer + addressBestFlappyBird);
 
   bestMazeEasy = EEPROM.read(currentPlayer + addressBestMazeEasy);
@@ -66,11 +71,12 @@ void setup() {
 
   bestTankWar = EEPROM.read(currentPlayer + addressBestTankWar);
 
-  selectGame();
+  selectGame(); // Start activity
 }
 
 // Handheld game console actives
 void loop() {
+  // Check continue or new game
   int resultCommonTmp;
   if (flag) resultCommonTmp = switchNewGame();
   else resultCommonTmp = switchContinue();

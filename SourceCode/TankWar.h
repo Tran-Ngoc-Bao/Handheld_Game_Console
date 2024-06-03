@@ -1,4 +1,5 @@
 // State of gun direction
+// State 1 is top. State 2 is right. State 3 is bottom, State 4 is left
 int stateVietNamTankWar, stateAmerica1TankWar, stateAmerica2TankWar, stateAmerica3TankWar, stateAmerica4TankWar;
 
 coordinates vietNamTankWar, america1TankWar, america2TankWar, america3TankWar, america4TankWar;
@@ -93,9 +94,9 @@ bool killAmericaTankWar(int x, int y) {
 }
 
 void shootAmericaTankWar() {
+  // Fly bullet animation
   switch (stateVietNamTankWar) {
     case 1:
-      // Fly bullet animation
       for (int i = vietNamTankWar.y - 1; i >= 0; --i) {
         tft.fillRoundRect(vietNamTankWar.x * 8 + 8, i * 8, 8, 8, 3, white);
         delay(10);
@@ -571,6 +572,7 @@ int continueTankWar() {
   drawAmericaTankWar(america3TankWar.x, america3TankWar.y, stateAmerica3TankWar);
   drawAmericaTankWar(america4TankWar.x, america4TankWar.y, stateAmerica4TankWar);
   
+  // Tank war actives
   while (1) {
     if (!digitalRead(pau)) return 0;
     if (hitAndRunAmerica1TankWar()) {
