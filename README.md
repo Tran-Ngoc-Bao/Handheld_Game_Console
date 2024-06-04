@@ -25,7 +25,7 @@
 <tr>
   <td>Phạm Thế Anh</td>
   <td>20215526</td>
-  <td>Test, Write report</td>
+  <td>Program, Write report</td>
 </tr>
 </table>
 
@@ -65,6 +65,18 @@
   <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Device.jpeg">
 </div>
 
+### New player and Old player
+<div style="display:flex">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/NewPlayer.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/OldPlayer.jpeg">
+</div>
+
+### Select game
+<div style="display:flex">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SelectGame1.jpeg">
+  <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/SelectGame2.jpeg">
+</div>
+
 ### Pause and Game over
 <div style="display:flex">
   <img style="width:49%" src="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Illustration/Pause.jpeg">
@@ -88,7 +100,5 @@
 
 ## Report
 <ul>
-  <li><a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Document/Report/Bao_Cao.pdf">Report</a></li>
-  <li>Slide</li>
-  <li>Video Demo</li>
+  <li><a href="https://github.com/Tran-Ngoc-Bao/HandheldGameConsole/blob/master/Document/Report/Report.pdf">Report</a></li>
 </ul>
